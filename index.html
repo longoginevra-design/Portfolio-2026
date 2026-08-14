@@ -181,6 +181,49 @@
     animation: fadeUp 0.8s ease 0.72s forwards;
   }
 
+  /* Hero info cards */
+  .hero-info {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 22px;
+  }
+
+  .info-card {
+    background: var(--accent-light);
+    padding: 10px 14px;
+    border-radius: 8px;
+    border-left: 3px solid var(--accent);
+    font-size: 0.86rem;
+    color: var(--gray-700);
+    min-width: 140px;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeUp 0.6s ease forwards;
+  }
+
+  .info-card strong { display: block; font-family: var(--serif); font-size: 1.05rem; color: var(--black); }
+
+  .info-card:nth-child(1){ animation-delay: 0.9s; }
+  .info-card:nth-child(2){ animation-delay: 1.02s; }
+  .info-card:nth-child(3){ animation-delay: 1.14s; }
+  .info-card:nth-child(4){ animation-delay: 1.26s; }
+  .info-card:nth-child(5){ animation-delay: 1.38s; }
+
+  /* subtle hero background accent */
+  .hero::after {
+    content: '';
+    position: absolute;
+    right: -6vw;
+    top: 8vh;
+    width: 38vw;
+    height: 38vw;
+    background: radial-gradient(circle at 30% 30%, rgba(59,63,255,0.08), transparent 40%);
+    pointer-events: none;
+    filter: blur(18px);
+    transform: translateZ(0);
+  }
+
   .hero-tags {
     display: flex;
     flex-wrap: wrap;
@@ -685,21 +728,13 @@
       <div class="container">
         <p class="hero-label">Product Designer · Milan</p>
         <h1>Ginevra Longo.<br><em>Deep in the domain,<br>close to the build.</em></h1>
-        <p class="hero-intro">
-          I design software for fields that have to be studied before they can be drawn —
-          industrial machinery, technical products, regulated services. The work starts before the
-          screen: understanding how the job actually gets done, finding where the value is sitting
-          unused, and building the thing that releases it. Sometimes that's an interface. More often
-          it's an architecture, a shared language between design and code, or a conversation nobody
-          was having.
-        </p>
-        <p class="hero-aside">Three years in consulting, always next to engineering, usually still there when it ships. Now looking for one product to build in-house.</p>
-        <div class="hero-tags">
-          <span class="hero-tag hero-tag--accent">Red Dot Best of the Best 2024</span>
-          <span class="hero-tag">Industrial HMI</span>
-          <span class="hero-tag">Design Systems</span>
-          <span class="hero-tag">Milan, 1997</span>
-          <span class="hero-tag">Polimi Alumni</span>
+        <p class="hero-intro">Designer focused on industrial HMI and design systems — building practical, buildable interfaces and foundations that scale.</p>
+        <div class="hero-info">
+          <div class="info-card"><strong>Milan, Italy</strong><span>Based</span></div>
+          <div class="info-card"><strong>4+ years</strong><span>Experience</span></div>
+          <div class="info-card"><strong>Industrial HMI</strong><span>Domain</span></div>
+          <div class="info-card"><strong>Design Consultant</strong><span>Current role</span></div>
+          <div class="info-card"><strong>Politecnico di Milano</strong><span>MA Design</span></div>
         </div>
       </div>
     </div>
