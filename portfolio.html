@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ginevra Longo — Product Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #fafaf8;
+    --gray-100: #f2f2f0;
+    --gray-300: #d4d4d0;
+    --gray-500: #8a8a86;
+    --gray-700: #4a4a48;
+    --accent: #3B3FFF;
+    --accent-light: #EEEFFF;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'DM Sans', -apple-system, sans-serif;
+    --max-width: 820px;
+    --side-padding: clamp(24px, 5vw, 64px);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--white);
+    color: var(--black);
+    line-height: 1.65;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection { background: var(--black); color: var(--white); }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  /* ---- NAV ---- */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 20px var(--side-padding);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(250, 250, 248, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease;
+  }
+
+  nav.scrolled { border-bottom-color: var(--gray-300); }
+
+  nav .name {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+  }
+
+  nav .nav-links { display: flex; gap: 32px; list-style: none; }
+
+  nav .nav-links a {
+    text-decoration: none;
+    color: var(--gray-500);
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+
+  nav .nav-links a:hover,
+  nav .nav-links a.is-current { color: var(--black); }
+
+  /* ---- LAYOUT ---- */
+  .container { max-width: var(--max-width); margin: 0 auto; }
+
+  .view { display: none; }
+  .view.is-on { display: block; }
+
+  .section-block { padding: 100px var(--side-padding); scroll-margin-top: 72px; }
+
+  .section-divider {
+    height: 1px;
+    background: var(--gray-300);
+    margin-bottom: 64px;
+  }
+
+  .section-number {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 48px;
+  }
+
+  .label-inline {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 22px;
+  }
+
+  /* ---- HERO ---- */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid var(--gray-300);
+  }
+
+  .hero-inner {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 120px var(--side-padding) 56px;
+  }
+
+  .hero-label {
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray-500);
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.2s forwards;
+  }
+
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.7rem, 6.4vw, 5rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    font-weight: 400;
+    margin-bottom: 36px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.4s forwards;
+  }
+
+  .hero h1 em { font-style: italic; color: var(--accent); }
+
+  .hero-intro {
+    font-size: 1.1rem;
+    line-height: 1.75;
+    color: var(--gray-700);
+    max-width: 580px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.6s forwards;
+  }
+
+  .hero-aside {
+    font-size: 0.88rem;
+    color: var(--gray-500);
+    font-style: italic;
+    line-height: 1.6;
+    max-width: 460px;
+    margin-top: 22px;
+    padding-left: 14px;
+    border-left: 2px solid var(--accent);
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.72s forwards;
+  }
+
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 30px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.85s forwards;
+  }
+
+  .hero-tag {
+    font-size: 0.74rem;
+    letter-spacing: 0.04em;
+    padding: 5px 13px;
+    border: 1px solid var(--gray-300);
+    border-radius: 100px;
+    color: var(--gray-700);
+  }
+
+  .hero-tag--accent { border-color: var(--accent); color: var(--accent); }
+
+  .hero-meta-row { padding: 0 var(--side-padding); }
+
+  .hero-meta {
+    border-top: 1px solid var(--gray-300);
+    padding: 40px 0;
+    display: flex;
+    gap: 56px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 1s forwards;
+  }
+
+  .meta-item {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gray-500);
+  }
+
+  .meta-item span {
+    display: block;
+    font-size: 0.88rem;
+    color: var(--black);
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 400;
+    margin-top: 6px;
+  }
+
+  /* ---- PHASES (how I work) ---- */
+  .phases {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    list-style: none;
+  }
+
+  .phase {
+    padding: 26px 20px 28px;
+    background: var(--gray-100);
+    border-radius: 4px;
+    position: relative;
+  }
+
+  .phase-number {
+    font-family: var(--serif);
+    font-size: 2rem;
+    color: var(--accent);
+    opacity: 0.28;
+    line-height: 1;
+    margin-bottom: 14px;
+  }
+
+  .phase h4 { font-weight: 500; font-size: 0.9rem; margin-bottom: 8px; }
+  .phase p { font-size: 0.82rem; color: var(--gray-700); line-height: 1.6; }
+
+  .phases-note {
+    margin-top: 26px;
+    font-size: 0.86rem;
+    color: var(--gray-500);
+    font-style: italic;
+    max-width: 560px;
+  }
+
+  /* ---- WORK INDEX ---- */
+  .work-item {
+    padding: 48px 0;
+    border-top: 1px solid var(--gray-300);
+    display: block;
+    text-decoration: none;
+  }
+
+  .work-item:last-of-type { border-bottom: 1px solid var(--gray-300); }
+
+  .work-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+
+  .work-title {
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, 3.2vw, 2.1rem);
+    letter-spacing: -0.025em;
+    line-height: 1.12;
+    transition: color 0.2s;
+  }
+
+  .work-item:hover .work-title { color: var(--accent); }
+
+  .work-date { font-size: 0.85rem; color: var(--gray-500); white-space: nowrap; }
+
+  .work-role-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+  }
+
+  .work-role { font-size: 0.88rem; color: var(--gray-700); }
+
+  .work-tag {
+    font-size: 0.66rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gray-500);
+    background: var(--gray-100);
+    padding: 3px 10px;
+    border-radius: 3px;
+  }
+
+  .work-desc {
+    font-size: 0.94rem;
+    color: var(--gray-700);
+    line-height: 1.72;
+    max-width: 600px;
+  }
+
+  .work-go {
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 0.82rem;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+    border-bottom: 1px solid transparent;
+  }
+
+  .work-item:hover .work-go { border-bottom-color: var(--accent); }
+
+  /* ---- IMPACT CALLOUT ---- */
+  .impact {
+    margin-top: 28px;
+    padding: 20px 24px;
+    background: var(--accent-light);
+    border-radius: 4px;
+    border-left: 3px solid var(--accent);
+    font-size: 0.88rem;
+    line-height: 1.65;
+    color: var(--gray-700);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .impact-label {
+    font-size: 0.64rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    opacity: 0.85;
+  }
+
+  .impact-row { display: flex; align-items: baseline; gap: 16px; }
+
+  .impact .number {
+    font-family: var(--serif);
+    font-size: 2rem;
+    letter-spacing: -0.03em;
+    color: var(--accent);
+    white-space: nowrap;
+    line-height: 1;
+  }
+
+  /* ---- WHY / CLOSING PROSE ---- */
+  .prose-lead {
+    font-family: var(--serif);
+    font-size: clamp(1.5rem, 3.4vw, 2.3rem);
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    max-width: 640px;
+    margin-bottom: 34px;
+  }
+
+  .prose-body {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--gray-700);
+    max-width: 620px;
+  }
+
+  .prose-body p { margin-bottom: 18px; }
+  .prose-body p:last-child { margin-bottom: 0; }
+  .prose-body strong { color: var(--black); font-weight: 500; }
+  .prose-body em { font-style: italic; }
+
+  /* ---- CONTACT ---- */
+  .contact-lead {
+    font-size: 0.9rem;
+    color: var(--gray-500);
+    margin-bottom: 20px;
+    line-height: 1.6;
+    max-width: 460px;
+  }
+
+  .contact-big {
+    display: inline-block;
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, 4vw, 2.8rem);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: var(--black);
+    text-decoration: none;
+    border-bottom: 2px solid var(--gray-300);
+    transition: border-color 0.2s, color 0.2s;
+    margin-bottom: 16px;
+  }
+
+  .contact-big:hover { border-bottom-color: var(--accent); color: var(--accent); }
+
+  .contact-phone {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--gray-500);
+    text-decoration: none;
+    margin-top: 10px;
+    transition: color 0.2s;
+  }
+
+  .contact-phone:hover { color: var(--black); }
+
+  /* ---- CASE PAGES ---- */
+  .case-top { padding: 120px var(--side-padding) 0; }
+
+  .backlink {
+    display: inline-block;
+    font-size: 0.82rem;
+    color: var(--gray-500);
+    text-decoration: none;
+    margin-bottom: 34px;
+    transition: color 0.2s;
+  }
+
+  .backlink:hover { color: var(--accent); }
+
+  .case-title {
+    font-family: var(--serif);
+    font-size: clamp(2.2rem, 5.4vw, 3.6rem);
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    font-weight: 400;
+    margin-bottom: 28px;
+  }
+
+  .case-title em { font-style: italic; color: var(--accent); }
+
+  .case-lede {
+    font-size: 1.1rem;
+    line-height: 1.75;
+    color: var(--gray-700);
+    max-width: 600px;
+  }
+
+  .case-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
+
+  /* summary card */
+  .spec {
+    margin-top: 44px;
+    background: var(--gray-100);
+    border-radius: 4px;
+    padding: 8px 26px;
+  }
+
+  .spec-row {
+    display: grid;
+    grid-template-columns: 132px 1fr;
+    gap: 22px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--gray-300);
+  }
+
+  .spec-row:last-child { border-bottom: none; }
+
+  .spec-row dt {
+    font-size: 0.66rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray-500);
+    padding-top: 4px;
+  }
+
+  .spec-row dd { margin: 0; font-size: 0.9rem; color: var(--gray-700); line-height: 1.6; }
+  .spec-row dd b { color: var(--black); font-weight: 500; }
+  .spec-row--key dd {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    color: var(--black);
+    letter-spacing: -0.015em;
+    line-height: 1.3;
+  }
+  .spec-row--key dd small {
+    display: block;
+    font-family: var(--sans);
+    font-size: 0.84rem;
+    color: var(--gray-500);
+    letter-spacing: 0;
+    margin-top: 4px;
+    line-height: 1.55;
+  }
+
+  /* case body */
+  .case-section { margin-bottom: 64px; }
+  .case-section:last-of-type { margin-bottom: 0; }
+
+  .case-section h2 {
+    font-family: var(--serif);
+    font-size: clamp(1.4rem, 2.8vw, 1.9rem);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    font-weight: 400;
+    margin-bottom: 20px;
+  }
+
+  .case-body { font-size: 0.98rem; line-height: 1.8; color: var(--gray-700); max-width: 640px; }
+  .case-body p { margin-bottom: 16px; }
+  .case-body p:last-child { margin-bottom: 0; }
+  .case-body strong { color: var(--black); font-weight: 500; }
+  .case-body em { font-style: italic; }
+
+  .decisions { list-style: none; }
+
+  .decision {
+    padding: 26px 0;
+    border-top: 1px solid var(--gray-300);
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 16px;
+  }
+
+  .decision:last-child { border-bottom: 1px solid var(--gray-300); }
+
+  .decision-mark {
+    font-size: 0.82rem;
+    color: var(--accent);
+    opacity: 0.7;
+    padding-top: 0.35em;
+  }
+
+  .decision h3 {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .decision p { font-size: 0.92rem; color: var(--gray-700); line-height: 1.72; margin-bottom: 12px; max-width: 600px; }
+  .decision p:last-child { margin-bottom: 0; }
+
+  .reflect {
+    background: var(--gray-100);
+    border-radius: 4px;
+    padding: 26px 28px;
+  }
+
+  .reflect h2 { margin-bottom: 14px; }
+  .reflect .case-body { max-width: none; }
+
+  .footnote {
+    margin-top: 56px;
+    padding-top: 18px;
+    border-top: 1px solid var(--gray-300);
+    font-size: 0.84rem;
+    color: var(--gray-500);
+    font-style: italic;
+    line-height: 1.6;
+  }
+
+  .tbc {
+    background: var(--accent-light);
+    color: var(--accent);
+    font-style: normal;
+    font-size: 0.82em;
+    letter-spacing: 0.04em;
+    padding: 1px 6px;
+    border-radius: 3px;
+  }
+
+  .pager {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--gray-300);
+  }
+
+  .pager a { text-decoration: none; max-width: 46%; }
+  .pager a span {
+    display: block;
+    font-size: 0.66rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray-500);
+    margin-bottom: 6px;
+  }
+  .pager a em {
+    font-family: var(--serif);
+    font-style: normal;
+    font-size: 1.15rem;
+    letter-spacing: -0.02em;
+    transition: color 0.2s;
+  }
+  .pager a:hover em { color: var(--accent); }
+  .pager .right { text-align: right; margin-left: auto; }
+
+  /* ---- FOOTER ---- */
+  footer { padding: 44px var(--side-padding); border-top: 1px solid var(--gray-300); }
+
+  footer .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  footer .made-with { font-size: 0.78rem; color: var(--gray-500); }
+  footer a { color: var(--gray-500); text-decoration: none; font-size: 0.78rem; }
+  footer a:hover { color: var(--black); }
+
+  /* ---- ANIMATIONS ---- */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.65s ease, transform 0.65s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; opacity: 1 !important; transform: none !important; }
+    html { scroll-behavior: auto; }
+  }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 768px) {
+    .hero-meta { flex-direction: column; gap: 24px; }
+    .phases { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .section-block { padding: 72px var(--side-padding); }
+    .hero-inner { padding-top: 108px; }
+    .case-top { padding-top: 104px; }
+    .spec-row { grid-template-columns: 1fr; gap: 6px; }
+    .spec-row dt { padding-top: 0; }
+    nav .nav-links { gap: 18px; }
+    nav .nav-links a { font-size: 0.78rem; }
+    .impact-row { flex-direction: column; gap: 8px; }
+  }
+
+  @media (max-width: 480px) {
+    .phases { grid-template-columns: 1fr; }
+    nav .nav-links { gap: 14px; }
+    nav .nav-links a { font-size: 0.74rem; }
+    .decision { grid-template-columns: 1fr; gap: 6px; }
+    .decision-mark { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="name" href="#/">Ginevra Longo</a>
+  <ul class="nav-links">
+    <li><a href="#approach" data-nav="approach">Approach</a></li>
+    <li><a href="#work" data-nav="work">Work</a></li>
+    <li><a href="#next" data-nav="next">Next step</a></li>
+    <li><a href="#contact" data-nav="contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ============================================================
+     HOME
+     ============================================================ -->
+<main class="view" id="v-home">
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="container">
+        <p class="hero-label">Product Designer · Milan</p>
+        <h1>Ginevra Longo.<br><em>Deep in the domain,<br>close to the build.</em></h1>
+        <p class="hero-intro">
+          I design software for fields that have to be studied before they can be drawn —
+          industrial machinery, technical products, regulated services. The work starts before the
+          screen: understanding how the job actually gets done, finding where the value is sitting
+          unused, and building the thing that releases it. Sometimes that's an interface. More often
+          it's an architecture, a shared language between design and code, or a conversation nobody
+          was having.
+        </p>
+        <p class="hero-aside">Three years in consulting, always next to engineering, usually still there when it ships. Now looking for one product to build in-house.</p>
+        <div class="hero-tags">
+          <span class="hero-tag hero-tag--accent">Red Dot Best of the Best 2024</span>
+          <span class="hero-tag">Industrial HMI</span>
+          <span class="hero-tag">Design Systems</span>
+          <span class="hero-tag">Milan, 1997</span>
+          <span class="hero-tag">Polimi Alumni</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-meta-row">
+      <div class="container">
+        <div class="hero-meta">
+          <div class="meta-item">
+            Currently
+            <span>Design Consultant &amp; Associate Manager @ NiEW</span>
+          </div>
+          <div class="meta-item">
+            Experience
+            <span>3+ years across machinery, manufacturing, public services, banking</span>
+          </div>
+          <div class="meta-item">
+            Recognition
+            <span>Red Dot Award 2024 — Best of the Best, industrial HMI</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 01 APPROACH -->
+  <section class="section-block" id="approach">
+    <div class="container">
+      <p class="section-number reveal">01 — How I work</p>
+      <ol class="phases reveal">
+        <li class="phase">
+          <div class="phase-number">01</div>
+          <h4>Learn the work</h4>
+          <p>Before the screen. How the job gets done, by whom, under what conditions — gloves and bad light, a safety procedure, a seller with four minutes. In a technical domain the user knows more than I do on day one.</p>
+        </li>
+        <li class="phase">
+          <div class="phase-number">02</div>
+          <h4>Find where the value is</h4>
+          <p>The brief is rarely the problem. I look for the thing that would actually move — a build cost, a sales cycle, a part ruined by one wrong parameter — and design toward that instead of toward the request.</p>
+        </li>
+        <li class="phase">
+          <div class="phase-number">03</div>
+          <h4>Build the architecture</h4>
+          <p>One foundation, many outputs. Variables, tokens, patterns, a grid someone else can extend without me. This is the phase that decides whether the second product costs as much as the first.</p>
+        </li>
+        <li class="phase">
+          <div class="phase-number">04</div>
+          <h4>Ship it, then keep it alive</h4>
+          <p>Next to front-end through the build, refining whatever is costing the team effort. Then adoption — documentation at the level people actually work at, and being there when someone hits a wall.</p>
+        </li>
+      </ol>
+      <p class="phases-note reveal">Twice in the last two years, phase 02 produced work nobody had asked for — and it became the most valuable thing we delivered.</p>
+    </div>
+  </section>
+
+  <!-- 02 WORK -->
+  <section class="section-block" id="work">
+    <div class="container">
+      <div class="section-divider"></div>
+      <p class="section-number reveal">02 — Selected work</p>
+
+      <a class="work-item reveal" href="#/ship">
+        <div class="work-header">
+          <span class="work-title">Designing to ship</span>
+          <span class="work-date">2025</span>
+        </div>
+        <div class="work-role-row">
+          <span class="work-role">Design Lead · Industrial OEM group, ~€390M</span>
+          <span class="work-tag">HMI</span>
+          <span class="work-tag">Design system</span>
+          <span class="work-tag">Implementation</span>
+        </div>
+        <p class="work-desc">
+          Two brands shipping the same machine with two separate interfaces, and a development team that
+          couldn't hit its deadlines. I designed both HMIs — screens and physical controls — then proposed
+          the design system the problem actually needed, and stayed through the build.
+        </p>
+        <div class="impact">
+          <span class="impact-label">Outcome</span>
+          <div class="impact-row">
+            <span class="number">8</span>
+            configurations from a single foundation — two products, light and dark, two devices. Deadlines met
+            at a fraction of the projected build cost, and the client adopted our tokens in their own codebase.
+          </div>
+        </div>
+        <span class="work-go">Read the case →</span>
+      </a>
+
+      <a class="work-item reveal" href="#/last">
+        <div class="work-header">
+          <span class="work-title">Designing to last</span>
+          <span class="work-date"><span class="tbc">dates tbc</span></span>
+        </div>
+        <div class="work-role-row">
+          <span class="work-role">Design System Lead · Global industrial group, &gt;€15B</span>
+          <span class="work-tag">Adoption</span>
+          <span class="work-tag">Stakeholders</span>
+          <span class="work-tag">Documentation</span>
+        </div>
+        <p class="work-desc">
+          A mature system of ~56 components, inherited mid-flight, stalling exactly where products met each
+          other. I changed how we worked with the product teams, led the hardest cross-product decisions,
+          and moved documentation from components up to patterns.
+        </p>
+        <div class="impact">
+          <span class="impact-label">Outcome</span>
+          <div class="impact-row">
+            <span class="number">~56</span>
+            core components governed across multiple products and teams. The project renews annually and now
+            runs on co-working sessions between functions that previously didn't speak to each other.
+          </div>
+        </div>
+        <span class="work-go">Read the case →</span>
+      </a>
+
+      <a class="work-item reveal" href="#/sell">
+        <div class="work-header">
+          <span class="work-title">Designing to sell</span>
+          <span class="work-date"><span class="tbc">dates tbc</span></span>
+        </div>
+        <div class="work-role-row">
+          <span class="work-role">Industrial packaging &amp; food processing equipment</span>
+          <span class="work-tag">Prototype</span>
+          <span class="work-tag">Sales enablement</span>
+          <span class="work-tag">Business impact</span>
+        </div>
+        <p class="work-desc">
+          Twelve years of digital ecosystem, invisible at the point of sale. Rather than redesigning the whole
+          commercial process, we rebuilt one touchpoint: a navigable prototype that opens with a question,
+          walks a buyer through their own problem, and ends as a record in the CRM.
+        </p>
+        <div class="impact">
+          <span class="impact-label">Outcome</span>
+          <div class="impact-row">
+            <span class="number">+30%</span>
+            qualified leads at trade fairs in the first season, against the historical average — then rolled
+            out to four other commercial contexts.
+          </div>
+        </div>
+        <span class="work-go">Read the case →</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- 03 NEXT -->
+  <section class="section-block" id="next">
+    <div class="container">
+      <div class="section-divider"></div>
+      <p class="section-number reveal">03 — Where I'm going</p>
+      <p class="prose-lead reveal">Consulting taught me to get useful fast in domains I didn't know. What it doesn't give you is the second year on the same product.</p>
+      <div class="prose-body reveal">
+        <p>
+          Machinery, manufacturing, public services, banking — every project meant learning a field from
+          scratch and being useful in it within weeks. That's the skill I'd bring anywhere. But the part
+          I'm missing is the one where you stay: where you find out which of your decisions actually held,
+          and you're the one who has to live with the ones that didn't.
+        </p>
+        <p>
+          I'm looking for a <strong>product team in a technical or scientific domain</strong> — instrumentation,
+          industrial software, engineering and developer tools, anything where the user knows more about their
+          work than I do on day one and the interface has to earn its place. Complex, data-dense, close to
+          engineering. That's the environment where I do my best work, and I'd rather go deeper into one of
+          those than wider across five more.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 CONTACT -->
+  <section class="section-block" id="contact" style="padding-bottom: 100px;">
+    <div class="container">
+      <div class="section-divider"></div>
+      <p class="section-number reveal">04 — Get in touch</p>
+      <div class="reveal">
+        <p class="contact-lead">Happy to talk — about a role, or just about how something in here was built.</p>
+        <a href="mailto:longoginevra@gmail.com" class="contact-big">longoginevra@gmail.com</a>
+        <a href="tel:+393471894414" class="contact-phone">+39 347 189 4414</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================================================
+     CASE 01 — SHIP
+     ============================================================ -->
+<main class="view" id="v-ship">
+
+  <section class="case-top">
+    <div class="container">
+      <a class="backlink" href="#work">← All work</a>
+      <p class="label-inline">Case 01 — Designing to ship</p>
+      <h1 class="case-title">Two machines, two brands,<br><em>one HMI foundation.</em></h1>
+      <p class="case-lede">
+        Designed, systematised, and taken into development alongside the client's engineering team.
+        Eight configurations from a single foundation, deadlines met, and a client who adopted our tokens
+        in their own codebase.
+      </p>
+      <div class="case-tags">
+        <span class="hero-tag">Product decisions under physical constraints</span>
+        <span class="hero-tag">Shipping alongside engineering</span>
+        <span class="hero-tag">Systems that scale</span>
+      </div>
+
+      <dl class="spec">
+        <div class="spec-row spec-row--key">
+          <dt>Role</dt>
+          <dd>Design Lead<small>Both products, design system architecture, implementation oversight</small></dd>
+        </div>
+        <div class="spec-row">
+          <dt>Client</dt>
+          <dd>Industrial OEM group, ~€390M, built through European acquisitions</dd>
+        </div>
+        <div class="spec-row">
+          <dt>Period</dt>
+          <dd>January — December 2025</dd>
+        </div>
+        <div class="spec-row">
+          <dt>Team</dt>
+          <dd>3 designers, plus the client's front-end and back-end teams</dd>
+        </div>
+        <div class="spec-row">
+          <dt>Surface</dt>
+          <dd>Embedded HMI · two screen sizes · light and dark mode · physical controls</dd>
+        </div>
+        <div class="spec-row">
+          <dt>Environment</dt>
+          <dd>Warehouse floor — gloves, noise, changing light, safety procedures</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="section-block">
+    <div class="container">
+
+      <div class="case-section">
+        <h2>Context</h2>
+        <div class="case-body">
+          <p>The product is an aluminium profile cutting machine. Operators set it up before and during production — with gloves on, in a noisy warehouse, under bad and changing light, inside safety procedures where a wrong parameter isn't a UI error but a ruined part.</p>
+          <p>Every one of those conditions became a constraint: larger touch targets for gloved hands, no reliance on audio, redundant visual states, contrast verified past the WCAG 2.1 AA floor, explicit confirmation on anything that changes the cut.</p>
+        </div>
+      </div>
+
+      <div class="case-section">
+        <h2>The problem</h2>
+        <div class="case-body">
+          <p>The group had grown by acquisition, absorbing European companies with their own conventions. The strategy was coherence without flattening: distinct brands, one way of interacting with the machine.</p>
+          <p>The cost of fragmentation was already visible — every product started over. The breaking point was concrete: two products, two screen resolutions, tight dev deadlines, and a starting plan to design and maintain each combination one by one.</p>
+        </div>
+      </div>
+
+      <div class="case-section">
+        <h2>Decisions</h2>
+        <ul class="decisions">
+          <li class="decision">
+            <span class="decision-mark">→</span>
+            <div>
+              <h3>Shared navigation, brand at the visual layer</h3>
+              <p>Same structure across both products; brand lives in the visuals. The reason is usage before efficiency — an operator who learns one machine can run another in the group, even in a different tier, because the language is the same. That's <em>one brand</em> built from experience, not from a logo.</p>
+              <p>It cost the brands the ability to differentiate structurally, so I defended it by showing the work: screens side by side, and what changed for the person using them.</p>
+            </div>
+          </li>
+          <li class="decision">
+            <span class="decision-mark">→</span>
+            <div>
+              <h3>Task-oriented over dense</h3>
+              <p>Product owners wanted to minimise clicks, and their conclusion was: show everything. I kept the goal and changed the route. With gloves and bad light, hunting for one parameter in a wall of numbers doesn't save time.</p>
+              <p>Screens show only what the current task needs — on the execution page, selected profile parameters appear up front only if they're mandatory and always useful; secondary ones sit one level away, in tabs. On the smaller display the same principle got stricter rather than dropped: limited space made mandatory what had been a choice.</p>
+            </div>
+          </li>
+          <li class="decision">
+            <span class="decision-mark">→</span>
+            <div>
+              <h3>56px, not the textbook 48</h3>
+              <p>The client asked for the standard 48px minimum. I flagged it as too small for this context and this kind of interaction, and pushed the target to 56px — giving up a few rows of vertical density in a project where the client wanted maximum data on screen. They later validated it with their own operators and confirmed the larger size. Accessibility guidelines are a floor, not a target.</p>
+            </div>
+          </li>
+          <li class="decision">
+            <span class="decision-mark">→</span>
+            <div>
+              <h3>A grid so engineering could scale it themselves</h3>
+              <p>Two resolutions. Instead of handing over two sets of screens, I set up a grid system the dev team could adapt on their own. A design decision made to cut someone else's build cost — and the reason the deadlines became reachable.</p>
+            </div>
+          </li>
+          <li class="decision">
+            <span class="decision-mark">→</span>
+            <div>
+              <h3>Where physical meets digital</h3>
+              <p>Some control happens through physical knobs. I designed that boundary: which functions stay physical, what their limits are, and how the HMI gives visual feedback for what the operator is doing with their hands. The interface isn't the screen — it's everything they touch.</p>
+            </div>
+          </li>
+          <li class="decision">
+            <span class="decision-mark">→</span>
+            <div>
+              <h3>One shared parameter list</h3>
+              <p>The parameter sections were dense and inconsistent across both products. In a co-work session with the front-end and back-end teams, we built a single list and card-sorted it into topics that covered both machines. Having the people who'd write the code in the room meant the structure was buildable the moment we agreed on it.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="case-section">
+        <h2>The system came second</h2>
+        <div class="case-body">
+          <p>No design system existed, and nobody had asked for one. I proposed it because the client's real problem — switching brand and mode without rebuilding — was architectural, not visual.</p>
+          <p>I built it from scratch on a <strong>variables</strong> architecture: one foundation to design and maintain, every variant derived from it. In practice: two products × light and dark × two devices, with other brands in the group reachable by swapping foundations.</p>
+          <p>It didn't stay a design reference. The client adopted the same tokens in their development environment, putting design and code on one logic.</p>
+        </div>
+        <div class="impact">
+          <span class="impact-label">From one foundation</span>
+          <div class="impact-row">
+            <span class="number">8</span>
+            configurations designed and maintained — two products, two modes, two devices — with further brands
+            in the group reachable by swapping foundations rather than rebuilding.
+          </div>
+        </div>
+      </div>
+
+      <div class="case-section">
+        <h2>Implementation</h2>
+        <div class="case-body">
+          <p>I stayed through the build, holding the line between front-end and back-end and working closest to front-end. Design wasn't finished at handoff: I refined whatever was costing the team effort, and we fixed and folded in functionality as requirements surfaced while the product was being built and tested.</p>
+        </div>
+      </div>
+
+      <div class="case-section">
+        <h2>Result</h2>
+        <div class="case-body">
+          <p>Deadlines met on a problem that had looked ungovernable, at a fraction of the projected build cost.</p>
+          <p>The bigger outcome was trust. The client bought follow-on projects, some strategically significant, starting from a solution we identified for them that was never in the original scope. The system wasn't the finish line — it's where everything else grew from.</p>
+        </div>
+      </div>
+
+      <div class="case-section reflect">
+        <h2>What I'd do differently</h2>
+        <div class="case-body">
+          <p>The client ran the validation sessions with their operators; I wasn't there. Watching them would have sharpened every decision that came after, and I'd negotiate that access at kickoff now rather than accept it as a given.</p>
+          <p>The card sort happened with the people building the product, not the people using it. The structure was coherent and buildable — but it reached the floor for verification second-hand.</p>
+        </div>
+      </div>
+
+      <p class="footnote">Design of both products, design system architecture, implementation oversight. Development by the client's IT team; operator validation run by the client.</p>
+
+      <nav class="pager">
+        <a href="#work"><span>Back</span><em>All work</em></a>
+        <a class="right" href="#/last"><span>Next case</span><em>Designing to last</em></a>
+      </nav>
+    </div>
+  </section>
+</main>
+
+<!-- ============================================================
+     CASE 02 — LAST
+     ============================================================ -->
+<main class="view" id="v-last">
+
+  <section class="case-top">
+    <div class="container">
+      <a class="backlink" href="#work">← All work</a>
+      <p class="label-inline">Case 02 — Designing to last</p>
+      <h1 class="case-title">A mature design system,<br><em>inherited mid-flight.</em></h1>
+      <p class="case-lede">
+        One of my firm's longest-running projects: solid, widely adopted, and stalling exactly where products
+        met each other. Put back at the centre of the products it served — and of the client relationship.
+      </p>
+      <div class="case-tags">
+        <span class="hero-tag">Adoption as a design problem</span>
+        <span class="hero-tag">Alignment across product teams</span>
+        <span class="hero-tag">Continuity over years, not sprints</span>
+      </div>
+
+      <dl class="spec">
+        <div class="spec-row spec-row--key">
+          <dt>Role</dt>
+          <dd>Design System Lead<small>Collaboration model, cross-product change requests, variables, pattern documentation, training</small></dd>
+        </div>
+        <div class="spec-row">
+          <dt>Client</dt>
+          <dd>Global industrial group, &gt;€15B revenue</dd>
+        </div>
+        <div class="spec-row">
+          <dt>Period</dt>
+          <dd><span class="tbc">dates to confirm</span></dd>
+        </div>
+        <div class="spec-row">
+          <dt>Team</dt>
+          <dd>4 designers · 1 client counterpart · 5 stakeholders</dd>
+        </div>
+        <div class="spec-row">
+          <dt>System</dt>
+          <dd>~56 core components · foundation library · icon system</dd>
+        </div>
+        <div class="spec-row">
+          <dt>Surface</dt>
+          <dd>Multi-product, multi-purpose industrial HMI</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="section-block">
+    <div class="container">
+
+      <div class="case-section">
+        <h2>Context</h2>
+        <div class="case-body">
+          <p>The system serves HMI products across an industrial group — different machines, different purposes, different teams building them. Components weren't the issue. They existed, they were good, and they were being used.</p>
+          <p>What wasn't working was adoption at the seams. Each product team applied the system in its own way, and the friction showed up wherever two products had to feel like the same company. Change requests pulled the system in incompatible directions, because each one was right from inside its own product.</p>
+        </div>
+      </div>
+
+      <div class="case-section">
+        <h2>The problem</h2>
+        <div class="case-body">
+          <p>Two problems, actually, and only one of them was technical.</p>
+          <p>The first: teams worked in silos. Nobody was arbitrating between products, so the system absorbed contradictory requests and slowly drifted toward being a component warehouse instead of a shared standard.</p>
+          <p>The second was mine to solve personally. I was replacing someone the client had trusted for years. Inherited trust doesn't transfer — and asking for it explicitly is the fastest way not to get it.</p>
+        </div>
+      </div>
+
+      <div class="case-section">
+        <h2>Decisions</h2>
+        <ul class="decisions">
+          <li class="decision">
+            <span class="decision-mark">→</span>
+            <div>
+              <h3>Earn the trust on the work, not on the introduction</h3>
+              <p>I didn't open with credentials or a transition plan. I picked up the hardest open items first and let the results make the argument. Slower than a formal handover, and it meant a few weeks of being the unknown person in the room — but it's the only version that holds.</p>
+            </div>
+          </li>
+          <li class="decision">
+            <span class="decision-mark">→</span>
+            <div>
+              <h3>From delivery to continuous exchange</h3>
+              <p>The relationship had been organised around handing over components. I turned it into an ongoing conversation with the product teams — which meant more of my time went into meetings that produce no deliverable, and less into the library itself.</p>
+              <p>Worth it, because adoption isn't caused by the quality of a component; it's caused by someone being there when a team hits a wall with it.</p>
+            </div>
+          </li>
+          <li class="decision">
+            <span class="decision-mark">→</span>
+            <div>
+              <h3>Mediate between products instead of arbitrating for them</h3>
+              <p>When two products wanted opposite things, the tempting move is to decide and publish. I ran it as a negotiation instead, in the open, with both teams present. Slower per decision, and it exposed disagreement that had been comfortable to leave implicit — but the decisions stuck, because nobody had them imposed.</p>
+              <p>I led the hardest of these: cross-product alignment on sizing and typography, where every product had a legitimate reason to be the exception.</p>
+            </div>
+          </li>
+          <li class="decision">
+            <span class="decision-mark">→</span>
+            <div>
+              <h3>Push variables through for consistency and scale</h3>
+              <p>The technical piece: implementing variables so brand, mode and product variation resolve at the foundation rather than being duplicated component by component.</p>
+            </div>
+          </li>
+          <li class="decision">
+            <span class="decision-mark">→</span>
+            <div>
+              <h3>Move the documentation from components to patterns</h3>
+              <p>Component-level documentation already existed and was thorough — anatomy, usage, do's and don'ts, behaviour, instructions, across all ~56 core components. My contribution was the layer above it: patterns, starting with dashboards.</p>
+              <p>Component docs answer <em>how does this control work</em>. Pattern docs answer <em>how do I build the screen I've been asked for</em>, which is the question teams actually arrive with. That's what makes documentation an adoption lever rather than a reference nobody opens.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="case-section">
+        <h2>The move that kept the project alive</h2>
+        <div class="case-body">
+          <p>Patterns solved a second problem I hadn't been briefed on.</p>
+          <p>A mature design system stops generating change requests. The base components exist, they work, and the work looks finished — which reads, from the client's side, like a project that no longer needs a partner. That's how long-running engagements quietly end.</p>
+          <p>Shifting the centre of gravity onto patterns close to the products put the system back into the teams' daily work, and it put us in front of stakeholders inside the company we'd never worked with. The renewal argument stopped being about maintenance and started being about the surfaces people were actively building.</p>
+        </div>
+      </div>
+
+      <div class="case-section">
+        <h2>Result</h2>
+        <div class="case-body">
+          <p>The project renews annually and now runs on co-working sessions between functions that previously didn't speak to each other.</p>
+          <p>I've trained three people on it. It's become one of the most formative paths inside the firm — partly because a mature system is where you learn that the hard part of a design system was never the components.</p>
+        </div>
+        <div class="impact">
+          <span class="impact-label">Continuity</span>
+          <div class="impact-row">
+            <span class="number">3</span>
+            people trained on the system, on a project that renews annually — where the renewal argument shifted
+            from maintenance to the surfaces teams were actively building.
+          </div>
+        </div>
+      </div>
+
+      <div class="case-section reflect">
+        <h2>What I'd do differently</h2>
+        <div class="case-body">
+          <p>I read the continuity risk late. The signal — change requests drying up — looks like success from the inside, and I only recognised it as a warning once adoption had already gone quiet in places. I'd now treat request volume as a health metric from day one rather than a workload one.</p>
+          <p>I'd also have pushed earlier for a decision forum with the product teams. I mediated the tensions well, but case by case, which meant I was the mechanism. A system that depends on one person to resolve conflict isn't yet a system.</p>
+        </div>
+      </div>
+
+      <p class="footnote">Project lead, collaboration model, cross-product change requests, variables implementation, pattern-level documentation, training. Component library built by the team before and during my tenure.</p>
+
+      <nav class="pager">
+        <a href="#/ship"><span>Previous case</span><em>Designing to ship</em></a>
+        <a class="right" href="#/sell"><span>Next case</span><em>Designing to sell</em></a>
+      </nav>
+    </div>
+  </section>
+</main>
+
+<!-- ============================================================
+     CASE 03 — SELL
+     ============================================================ -->
+<main class="view" id="v-sell">
+
+  <section class="case-top">
+    <div class="container">
+      <a class="backlink" href="#work">← All work</a>
+      <p class="label-inline">Case 03 — Designing to sell</p>
+      <h1 class="case-title">A prototype that turned a stand<br>conversation into <em>a qualified lead.</em></h1>
+      <p class="case-lede">
+        Twelve years of digital ecosystem, invisible at the point of sale. We rebuilt one touchpoint instead
+        of the whole commercial process — and gave a sales network a way to sell an ecosystem rather than a catalogue.
+      </p>
+      <div class="case-tags">
+        <span class="hero-tag">Design as a commercial instrument</span>
+        <span class="hero-tag">Complex ecosystems made legible</span>
+        <span class="hero-tag">Measured business impact</span>
+      </div>
+
+      <dl class="spec">
+        <div class="spec-row spec-row--key">
+          <dt>Role</dt>
+          <dd><span class="tbc">to confirm</span><small>Prototype and scenario design, demo script, public presentation</small></dd>
+        </div>
+        <div class="spec-row">
+          <dt>Client</dt>
+          <dd>International leader in industrial packaging and food processing equipment</dd>
+        </div>
+        <div class="spec-row">
+          <dt>Period</dt>
+          <dd><span class="tbc">dates to confirm</span></dd>
+        </div>
+        <div class="spec-row">
+          <dt>Market</dt>
+          <dd>High-value capital equipment, long sales cycles</dd>
+        </div>
+        <div class="spec-row">
+          <dt>Surface</dt>
+          <dd>Navigable prototype spanning three connected software products</dd>
+        </div>
+        <div class="spec-row">
+          <dt>Deployed</dt>
+          <dd>Trade fairs · Innovation Centre showroom · one-to-one meetings · internal enablement</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="section-block">
+    <div class="container">
+
+      <div class="case-section">
+        <h2>Context</h2>
+        <div class="case-body">
+          <p>Industrial equipment used to compete on hardware. It doesn't any more: the price gap with Asian competitors is structural, in the 30–50% range, and no internal efficiency programme closes it. Value has moved to software, services, and the ability to solve a business problem.</p>
+          <p>This client had already made that move. Over twelve years they'd built a real digital ecosystem around the machine: redesigned operator interfaces, digitised quality control, real-time efficiency dashboards. Three product lines, three distinct value propositions.</p>
+        </div>
+      </div>
+
+      <div class="case-section">
+        <h2>The problem</h2>
+        <div class="case-body">
+          <p>The product had changed. The way it was sold hadn't.</p>
+          <p>The sales network knew the machine specification cold, but had never been equipped to translate it into business impact. So conversations started from power, precision and reliability — things the buyer now takes for granted, and none of which explain why to choose this supplier over another.</p>
+          <p>The symptoms were measurable: sales cycles getting longer, few qualified opportunities coming out of fairs and the installed base, and a low hit rate on diagnosing what a buyer actually needed. Software and services weren't monetised — they were folded into the machine price to close the deal, which is another way of saying the ecosystem had no visible value at all.</p>
+        </div>
+      </div>
+
+      <div class="case-section">
+        <h2>Decisions</h2>
+        <ul class="decisions">
+          <li class="decision">
+            <span class="decision-mark">→</span>
+            <div>
+              <h3>One touchpoint, not the whole funnel</h3>
+              <p>The honest scope of the problem was the entire commercial process. We deliberately didn't take it on. We picked the single most visible, most measurable point — the trade fair stand — and rebuilt that. It meant leaving most of the funnel untouched, and it's the reason there was a result to measure within one season instead of a transformation programme with no reportable outcome.</p>
+            </div>
+          </li>
+          <li class="decision">
+            <span class="decision-mark">→</span>
+            <div>
+              <h3>A qualifying tool, not a catalogue</h3>
+              <p>The default artefact for a fair is a demo that lists what the software does. This one is built to listen. The seller opens with a question about the buyer's business — where are you with downtime, with training new operators — and only reaches for the screen once there's something real to answer. The prototype's first job is to make the customer talk, and then to take them, with their own hands, to where the value is for them.</p>
+            </div>
+          </li>
+          <li class="decision">
+            <span class="decision-mark">→</span>
+            <div>
+              <h3>Make it feel like a product, not a presentation</h3>
+              <p>The prototype is a navigable model that looks and behaves like real software. That was the point: credibility with a technical buyer collapses the moment something looks like slideware. The trade-off is effort — designing believable states and data across three products costs far more than describing them.</p>
+            </div>
+          </li>
+          <li class="decision">
+            <span class="decision-mark">→</span>
+            <div>
+              <h3>Design the path, then let go of it</h3>
+              <p>Each scenario is designed upstream around specific commercial choices, with the degree of freedom tuned to how much the seller should steer. That's what makes it work in anyone's hands, including a junior's, and keeps the story consistent with the company's objectives regardless of who's holding it. The alternative — a free-form demo — only works for the two people who built it.</p>
+            </div>
+          </li>
+          <li class="decision">
+            <span class="decision-mark">→</span>
+            <div>
+              <h3>Show the ecosystem as one line, not three products</h3>
+              <p>The downtime scenario runs across all three software products in a single flow: the on-machine HMI flags an upcoming maintenance days ahead, the planning software in the office reshuffles production loads and signals the part that needs ordering, and the service module places the order as a planned move instead of an emergency.</p>
+              <p>In five minutes the buyer hasn't seen three pieces of software — they've seen their own company's complexity handled end to end. Then the seller asks which of the three areas is most urgent, and whatever the answer is, the opportunity has just been qualified.</p>
+            </div>
+          </li>
+          <li class="decision">
+            <span class="decision-mark">→</span>
+            <div>
+              <h3>Turn the conversation into data</h3>
+              <p>Anything the buyer reacts to can be pinned to their profile. What's left at the end of the day isn't a memory of a good chat: it's a structured record — name, company, role, email, the seller's notes, the pages that mattered — ready for the CRM and for whoever writes the proposal. This is the piece that converts a design artefact into a commercial asset.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="case-section">
+        <h2>Result</h2>
+        <div class="impact">
+          <span class="impact-label">First fair season</span>
+          <div class="impact-row">
+            <span class="number">+30%</span>
+            qualified leads generated at fairs using the tool, against the historical average — then replicated
+            across four further commercial contexts rather than replaced.
+          </div>
+        </div>
+        <div class="case-body" style="margin-top: 28px;">
+          <p><strong>Faster cycles.</strong> Priorities surface within minutes at the stand, so sellers know immediately which opportunities to qualify and what to concentrate on, cutting downstream handling time.</p>
+          <p><strong>Access to the decision maker.</strong> The conversation now starts in business language — KPIs, ROI, operational impact — rather than product specification. C-level buyers who previously didn't engage now stay at the table.</p>
+          <p>Beyond the numbers, the same object did three jobs at once: it carried the story, it kept people at the stand longer because they were exploring it themselves, and it got conversations to the business point faster.</p>
+          <p>It was replicated across four contexts: international fairs with scenarios customised per audience, the company's Innovation Centre showroom, one-to-one sales meetings, and internal enablement — where it became the tool that makes the same quality of conversation repeatable regardless of a seller's seniority.</p>
+          <p>I also presented the prototype publicly, as a live demo in a sector webinar for <span class="tbc">audience to confirm</span>, as part of the case for how this shift is made.</p>
+        </div>
+      </div>
+
+      <div class="case-section reflect">
+        <h2>What I'd do differently</h2>
+        <div class="case-body">
+          <p>The scenarios were chosen upstream from competitive differentiation — the right criterion, but a desk-based one. The first fair season was, in effect, the first real test of whether those were the twenty conversations buyers actually wanted to have. I'd now build in a way to capture which scenarios go unused, and treat the prototype as something that learns from each season rather than something that gets adapted for the next one.</p>
+        </div>
+      </div>
+
+      <p class="footnote">Design of the prototype and its scenarios, demo script, public presentation — <span class="tbc">scope to confirm</span>. Commercial strategy, segmentation and sales-cycle design developed with the wider team.</p>
+
+      <nav class="pager">
+        <a href="#/last"><span>Previous case</span><em>Designing to last</em></a>
+        <a class="right" href="#contact"><span>Next</span><em>Get in touch</em></a>
+      </nav>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <span class="made-with">Ginevra Longo · Product Designer · 2026</span>
+    <a href="mailto:longoginevra@gmail.com">longoginevra@gmail.com</a>
+  </div>
+</footer>
+
+<script>
+  var VIEWS = { home: 'v-home', ship: 'v-ship', last: 'v-last', sell: 'v-sell' };
+  var ANCHORS = ['approach', 'work', 'next', 'contact'];
+
+  function show(key) {
+    Object.keys(VIEWS).forEach(function (k) {
+      document.getElementById(VIEWS[k]).classList.toggle('is-on', k === key);
+    });
+    var titles = {
+      home: 'Ginevra Longo — Product Designer',
+      ship: 'Designing to ship — Ginevra Longo',
+      last: 'Designing to last — Ginevra Longo',
+      sell: 'Designing to sell — Ginevra Longo'
+    };
+    document.title = titles[key];
+  }
+
+  function render() {
+    var h = (location.hash || '').replace(/^#/, '');
+    var anchor = null;
+    var key = 'home';
+
+    if (h.charAt(0) === '/') {
+      var r = h.slice(1);
+      key = VIEWS[r] ? r : 'home';
+    } else if (h && ANCHORS.indexOf(h) !== -1) {
+      anchor = h;
+    }
+
+    show(key);
+
+    document.querySelectorAll('.nav-links a').forEach(function (a) {
+      a.classList.toggle('is-current', key === 'home' && a.dataset.nav === anchor);
+    });
+
+    if (anchor) {
+      var el = document.getElementById(anchor);
+      if (el) { el.scrollIntoView({ behavior: 'auto', block: 'start' }); return; }
+    }
+    window.scrollTo(0, 0);
+  }
+
+  // reveal on scroll
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.reveal').forEach(function (el) { observer.observe(el); });
+
+  window.addEventListener('scroll', function () {
+    document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  window.addEventListener('hashchange', render);
+  render();
+</script>
+
+</body>
+</html>
