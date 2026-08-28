@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script>document.documentElement.classList.add('js');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sales Tool for a Connected Product Ecosystem — Ginevra Longo</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="case.css">
+<script src="main.js" defer></script>
+<style>
+  /* ---- VIDEO (after header) ---- */
+  .case-video { margin: 0 auto; width: fit-content; max-width: 820px; position: relative; }
+  .case-video video { display: block; width: 100%; height: auto; max-height: 62vh; border: 1px solid var(--gray-300); background: var(--gray-100); }
+  .case-video__toggle {
+    position: absolute; bottom: 12px; right: 12px;
+    appearance: none; border: 1px solid rgba(250, 250, 248, 0.4);
+    background: rgba(14, 14, 16, 0.55); backdrop-filter: blur(8px);
+    color: #fff; border-radius: 100px; padding: 6px 14px; cursor: pointer;
+    font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase;
+    opacity: 0; transition: opacity 0.25s;
+  }
+  .case-video:hover .case-video__toggle,
+  .case-video__toggle:focus-visible { opacity: 1; }
+  .case-video__toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .case-video figcaption { margin-top: 12px; font-size: 0.85rem; color: var(--gray-700); line-height: 1.6; text-align: center; }
+
+  /* ---- FLOW DIAGRAM (THE SOLUTION, inverted) — one line, three real
+     screens. Frame sized from the narrowest of the three native ratios
+     (scenario 03, 1410:801) with object-fit:contain, same sanctioned
+     multi-asset-frame technique this page's retired walker used for the
+     same three assets. The connecting line is one continuous absolutely-
+     positioned element behind the frames, not three separate segments —
+     it's occluded where a frame's own background covers it, which is what
+     makes it read as "entering" and "exiting" each screen rather than
+     stopping at every gap. Frame background matches the section's own
+     black so any letterboxed edge is invisible rather than a visible box. ---- */
+  .flow-diagram { margin-top: 48px; }
+  .flow-diagram__row { display: flex; gap: 24px; position: relative; }
+  .flow-diagram__line {
+    position: absolute; z-index: 0;
+    left: 0; right: 0; top: 50%;
+    height: 1px; background: currentColor; opacity: 0.6;
+  }
+  .flow-diagram__step {
+    position: relative; z-index: 1;
+    flex: 1; min-width: 0;
+    display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px;
+  }
+  .flow-diagram__frame {
+    position: relative; width: 100%;
+    border: 1px solid var(--gray-300);
+    background: var(--black);
+    aspect-ratio: 1410 / 801;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .flow-diagram__frame img { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
+  .flow-diagram figcaption { margin-top: 16px; font-size: 0.85rem; color: var(--gray-300); }
+
+  @media (max-width: 768px) {
+    .flow-diagram__row { flex-direction: column; gap: 32px; }
+    .flow-diagram__line { left: 50%; right: auto; top: 0; bottom: 0; height: auto; width: 1px; }
+  }
+
+  /* THE IMPACT has 4 cards on this page, not 3 — the shared .phases grid
+     (case.css) defaults to 3 columns, which would wrap a 4th card alone
+     onto its own row. 2 columns here instead; the existing shared
+     breakpoints (768px: 1fr 1fr, 480px: 1fr) already happen to match, so
+     nothing else needs overriding. */
+  .phases { grid-template-columns: repeat(2, 1fr); }
+</style>
+</head>
+<body>
+
+<div class="prog"></div>
+<nav class="nav" id="nav">
+  <a class="name" href="index.html">Ginevra Longo<span class="name-dot" aria-hidden="true"></span></a>
+  <a class="back" href="index.html#work">← All work</a>
+</nav>
+
+<!-- HEADER -->
+<div class="case-top">
+  <div class="container">
+    <a class="backlink" href="index.html">← Back</a>
+
+    <p class="work-kicker">Designing to sell</p>
+    <h1 class="case-title">Sales Tool for a Connected Product&nbsp;Ecosystem</h1>
+    <p class="case-lede">Twelve years of building a connected ecosystem, and a sales network still selling the&nbsp;machine.</p>
+
+    <div class="case-body case-why">
+      <p>This is the case where design was the commercial instrument. The brief wasn't a screen, it was <em class="key">a sales conversation that kept starting in the wrong place</em> — and the outcome wasn't a design metric, it was <em class="key">qualified leads</em>.</p>
+    </div>
+
+    <dl class="spec">
+      <div class="spec-row spec-row--key">
+        <dt>My role</dt>
+        <dd>Design Manager
+          <small>Client facing, design of the prototype and its scenarios, project management. Commercial strategy, segmentation and sales-cycle design developed with the wider team.</small>
+        </dd>
+      </div>
+      <div class="spec-row">
+        <dt>Sector</dt>
+        <dd>Manufacturing — industrial packaging and food processing equipment</dd>
+      </div>
+      <div class="spec-row">
+        <dt>Timeline</dt>
+        <dd>September – November 2025</dd>
+      </div>
+      <div class="spec-row">
+        <dt>Product</dt>
+        <dd>Navigable prototype across a complex product ecosystem — 10+ software products</dd>
+      </div>
+      <div class="spec-row">
+        <dt>What's shown</dt>
+        <dd>The real project is covered by an NDA. The video and screens on this page come from a demo built for a sector webinar on selling digital suites, with invented data — not the client's product.</dd>
+      </div>
+    </dl>
+  </div>
+</div>
+
+<!-- VIDEO -->
+<section>
+  <div class="wide">
+    <figure class="case-video reveal">
+      <video
+        id="caseVideo"
+        width="2140" height="1314"
+        muted loop playsinline preload="metadata"
+        poster="assets/cases/03/case03-hero-poster.jpg"
+        aria-label="The prototype being navigated during a sales conversation">
+        <source src="assets/cases/03/case03-hero.mp4" type="video/mp4">
+      </video>
+      <button type="button" class="case-video__toggle" id="caseVideoToggle" aria-label="Pause video">Pause</button>
+      <figcaption>Demo built for a sector webinar, with invented data. One flow, five minutes.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 01 THE PROBLEM -->
+<section>
+  <div class="text">
+    <div class="sec-heading reveal">
+      <h2 class="sec-label">01 — The problem</h2>
+      <h3 class="sec-pretitle">The product had changed. The selling hadn't.</h3>
+    </div>
+    <div class="case-body">
+      <p>Over twelve years the client had built a real digital ecosystem around their machine: more than ten software products — operator interfaces, digitised quality control, real-time efficiency dashboards, planning and service tools — each with its own value proposition.</p>
+      <p>The sales network knew the machine specification cold, and had never been equipped to translate it into business impact. So conversations opened on power, precision and reliability — things a buyer now takes for granted, and none of which explain why to choose this supplier over another. Meanwhile the price gap with Asian competitors is structural, in the <strong>30–50%</strong> range, and no internal efficiency programme closes it.</p>
+      <p>The symptoms were measurable: lengthening sales cycles, few qualified opportunities coming out of fairs, and software and services folded into the machine price to close the deal — which is another way of saying the ecosystem had no visible value at all.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 02 THE SOLUTION (inverted; the page's only diagram) -->
+<section class="inverted">
+  <div class="text">
+    <div class="sec-heading reveal">
+      <h2 class="sec-label">02 — The solution</h2>
+      <h3 class="sec-pretitle">One touchpoint, not the whole funnel</h3>
+    </div>
+    <div class="case-body">
+      <p>The honest scope of the problem was the entire commercial process. We deliberately didn't take it on. We picked the single most visible, most measurable point — the trade fair stand — and rebuilt that.</p>
+      <p>What we built is a navigable prototype that opens with a question instead of a pitch, <strong>walks a buyer through their own problem across the products that matter to it — three of the ten, in one continuous flow</strong>, and ends as a structured record in the CRM: role, company, the pages that mattered, the seller's notes.</p>
+      <p>Leaving most of the funnel untouched is the reason there was a result to measure inside one fair season, instead of a transformation programme with nothing reportable at the end of it.</p>
+    </div>
+  </div>
+
+  <div class="wide">
+    <figure class="flow-diagram reveal">
+      <div class="flow-diagram__row">
+        <span class="flow-diagram__line" aria-hidden="true"></span>
+        <div class="flow-diagram__step">
+          <span class="dgm-label">01 · On-machine interface</span>
+          <div class="flow-diagram__frame">
+            <img src="assets/cases/03/case03-scenario01.png" width="1477" height="831" loading="lazy" decoding="async" alt="Machine analytics dashboard showing production KPIs, an energy consumption chart, and a scheduled maintenance panel listing planned activities.">
+          </div>
+          <p class="dgm-sub">Flags maintenance, days ahead</p>
+        </div>
+        <div class="flow-diagram__step">
+          <span class="dgm-label">02 · Planning software</span>
+          <div class="flow-diagram__frame">
+            <img src="assets/cases/03/case03-scenario02.png" width="1238" height="699" loading="lazy" decoding="async" alt="Production planning calendar with a shift detail panel open, showing a part that must be pre-ordered to avoid disrupting the production cycle.">
+          </div>
+          <p class="dgm-sub">Reshuffles production, signals the part to order</p>
+        </div>
+        <div class="flow-diagram__step">
+          <span class="dgm-label">03 · Service module</span>
+          <div class="flow-diagram__frame">
+            <img src="assets/cases/03/case03-scenario03.png" width="1410" height="801" loading="lazy" decoding="async" alt="Spare parts marketplace with a filter component selected and its product detail panel open, ready to add to cart.">
+          </div>
+          <p class="dgm-sub">Places the order — planned, not an emergency</p>
+        </div>
+      </div>
+      <figcaption>Three of ten-plus products, one continuous path. From the webinar demo, with invented data.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 03 THE IMPACT -->
+<section>
+  <div class="text">
+    <div class="sec-heading reveal">
+      <h2 class="sec-label">03 — The impact</h2>
+      <h3 class="sec-pretitle">+30% qualified leads in the first fair season</h3>
+    </div>
+
+    <ol class="phases reveal">
+      <li class="phase">
+        <span class="phase-number">01</span>
+        <h4>+30% qualified leads,</h4>
+        <p>measured across the first fair season using the tool, against the historical average.</p>
+      </li>
+      <li class="phase">
+        <span class="phase-number">02</span>
+        <h4>C-level buyers stay at the table.</h4>
+        <p>The conversation now opens in business language — downtime, ROI, operational impact — rather than product specification, which is what gets a decision maker to keep listening. Priorities surface within minutes at the stand, so sellers know immediately which opportunities to qualify.</p>
+      </li>
+      <li class="phase">
+        <span class="phase-number">03</span>
+        <h4>Replicated across four contexts, not replaced.</h4>
+        <p>International fairs with scenarios customised per audience, the company's Innovation Centre showroom, one-to-one sales meetings, and internal enablement — where it became the thing that makes the same quality of conversation repeatable regardless of a seller's seniority.</p>
+      </li>
+      <li class="phase">
+        <span class="phase-number">04</span>
+        <h4>The method outlived the project.</h4>
+        <p>The real work is under NDA, so I rebuilt the approach as a standalone demo for a sector webinar: how a digital suite gets sold against competitors who entered this market in the last five years. That version is what's shown on this page.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- 04 INSIDE THE PRODUCT — DESIGN DECISIONS -->
+<section>
+  <div class="text">
+    <div class="sec-heading reveal">
+      <h2 class="sec-label">04 — Inside the product — design decisions</h2>
+      <h3 class="sec-pretitle">Three decisions, and what each one cost</h3>
+    </div>
+
+    <ol class="decisions">
+      <li class="decision reveal">
+        <span class="decision-num">01</span>
+        <div class="case-body">
+          <h3>Built to listen, not to demo</h3>
+          <p>The default artefact for a fair is a demo that lists what the software does. This one is built to make the customer talk: the seller opens with a question about the buyer's business — where are you with downtime, with training new operators — and only reaches for the screen once there's something real to answer. Each scenario is designed upstream, with the degree of freedom tuned to how much the seller should steer.</p>
+          <p><em>It's more work than a free-form demo, and it takes control away from the person presenting — which is exactly why it holds in a junior's hands instead of working only for the two people who built it.</em></p>
+        </div>
+      </li>
+
+      <li class="decision reveal">
+        <span class="decision-num">02</span>
+        <div class="case-body">
+          <h3>Three products shown as one line</h3>
+          <p>Ten software products sold as a catalogue is a catalogue, whatever the sequence. The downtime scenario instead runs across three of them in a single flow, so in five minutes the buyer hasn't seen three pieces of software — they've seen their own company's complexity handled end to end. Then the seller asks which area is most urgent, and whatever the answer is, the opportunity has just been qualified.</p>
+          <p><em>Choosing three out of ten means leaving seven out of the conversation, and making the three behave like real software — believable states and data — costs far more than describing all ten would have. Credibility with a technical buyer collapses the moment something looks like slideware.</em></p>
+        </div>
+      </li>
+
+      <li class="decision reveal">
+        <span class="decision-num">03</span>
+        <div class="case-body">
+          <h3>The conversation becomes a record</h3>
+          <p>Anything the buyer reacts to can be pinned to their profile. What's left at the end of the day isn't the memory of a good chat: it's a structured record — name, company, role, email, the seller's notes, the pages that mattered — ready for the CRM and for whoever writes the proposal.</p>
+          <p><em>It puts admin work in the middle of a sales conversation, which sellers resist until they see the proposal it produces — and it's the piece that turns a design artefact into a commercial asset.</em></p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- 05 WHAT I'D DO DIFFERENTLY -->
+<section>
+  <div class="text">
+    <div class="sec-heading reveal">
+      <h2 class="sec-label">05 — What I'd do differently</h2>
+      <h3 class="sec-pretitle">The scenarios were chosen at a desk</h3>
+    </div>
+    <div class="case-body">
+      <p>They came from competitive differentiation, which is the right criterion and a desk-based one. The first fair season was, in effect, the first real test of whether those were the conversations buyers actually wanted to have.</p>
+      <p>I'd build in a way to capture which scenarios go unused, and treat the prototype as something that learns from each season rather than something that gets adapted for the next one.</p>
+    </div>
+    <p class="closing-note">Commercial strategy, segmentation and sales-cycle design developed with the wider team.</p>
+  </div>
+</section>
+
+<!-- PAGER -->
+<section>
+  <div class="text">
+    <nav class="pager">
+      <a href="case-02.html">
+        <span>Previous</span>
+        <em>Multi-product Industrial Design&nbsp;System</em>
+      </a>
+      <a class="right" href="index.html#work">
+        <span>Back to</span>
+        <em>All&nbsp;work</em>
+      </a>
+    </nav>
+  </div>
+</section>
+
+<script src="case.js"></script>
+<script>
+  Case.init();
+
+  (function () {
+    var video = document.getElementById('caseVideo');
+    var toggle = document.getElementById('caseVideoToggle');
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!reduceMotion) {
+      video.play();
+    }
+    toggle.textContent = reduceMotion ? 'Play' : 'Pause';
+    toggle.setAttribute('aria-label', reduceMotion ? 'Play video' : 'Pause video');
+
+    toggle.addEventListener('click', function () {
+      if (video.paused) {
+        video.play();
+        toggle.textContent = 'Pause';
+        toggle.setAttribute('aria-label', 'Pause video');
+      } else {
+        video.pause();
+        toggle.textContent = 'Play';
+        toggle.setAttribute('aria-label', 'Play video');
+      }
+    });
+  })();
+</script>
+</body>
+</html>

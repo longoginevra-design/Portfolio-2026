@@ -1,0 +1,524 @@
+/* ============================================================
+   CASE STUDY SHARED SYSTEM
+   Tokens kept in sync by hand with index.html's :root — this
+   file has no link to index.html's inline <style>, since these
+   are standalone pages.
+   ============================================================ */
+
+:root {
+  --black: #0a0a0a;
+  --white: #fafaf8;
+  --gray-100: #f2f2f0;
+  --gray-300: #d4d4d0;
+  --gray-500: #8a8a86;
+  --gray-700: #4a4a48;
+  --accent: #3B3FFF;
+  --accent-light: #EEEFFF;
+  --accent-12: rgba(59, 63, 255, 0.12);
+  --serif: 'DM Serif Display', Georgia, serif;
+  --sans: 'DM Sans', -apple-system, sans-serif;
+  --mono: ui-monospace, 'SF Mono', 'Cascadia Code', Menlo, monospace;
+  --side-padding: clamp(24px, 5vw, 64px);
+  --nav-h: 64px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--sans);
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--black);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+}
+
+img, video { max-width: 100%; display: block; }
+
+a { color: inherit; }
+
+button {
+  font-family: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ---- WIDTH SYSTEM ---- */
+.text {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 0 var(--side-padding);
+}
+
+.wide {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 var(--side-padding);
+}
+
+.bleed {
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+}
+
+/* ---- TYPE SCALE ---- */
+.eyebrow {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 18px;
+}
+
+h1 {
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 5.6vw, 4rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  font-weight: 400;
+  margin: 0 0 20px;
+}
+
+h2 {
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+  margin: 0 0 20px;
+}
+
+h3 {
+  font-family: var(--sans);
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin: 0 0 8px;
+}
+
+.lede {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: var(--gray-700);
+  margin: 0;
+}
+
+.small {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--gray-700);
+}
+
+.meta {
+  font-size: 0.8rem;
+  color: var(--gray-700);
+  letter-spacing: 0.02em;
+}
+
+.tradeoff {
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--gray-700);
+  opacity: 0.85;
+  margin: 10px 0 0;
+}
+
+/* ---- SECTION LABEL (h2) / PRE-TITLE (h3) ----
+   The numbered-label-plus-argument two-tier heading pattern used across the
+   narrative-format case pages (case-01, case-02). Moved here from case-01's
+   own inline style once case-02 needed the identical thing — no exact
+   one-tag equivalent exists on index.html to reuse instead (see
+   portfolio-case-spec.md). Values: .sec-label from .label-inline,
+   .sec-pretitle from .case-section h2, both on index.html. */
+.sec-label {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 14px;
+}
+/* --accent on the inverted background measures 3.15:1 — passes the 3:1 UI
+   threshold but fails 4.5:1 for text this small, so it can't just carry
+   over. --white at reduced opacity does (~10.7:1 at 0.75). */
+section.inverted .sec-label { color: var(--white); opacity: 0.75; }
+
+.sec-pretitle {
+  font-family: var(--serif);
+  font-size: clamp(1.4rem, 2.8vw, 1.9rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+  margin: 0 0 20px;
+}
+/* .sec-pretitle has no colour of its own, so it already inherits
+   section.inverted's white correctly — no override needed here. */
+
+/* ---- INVERTED-SECTION BODY TEXT (case-01, case-03) ----
+   .case-body's own colours (grey body text, black strong, accent em.key)
+   would be broken or invisible on an .inverted section's near-black
+   background if left alone. One shared fix instead of the inline
+   style="color:..." hacks both pages had accumulated independently —
+   .case-body itself just needs white; strong and em.key need their own
+   overrides since their un-inverted rules set an explicit colour that
+   would otherwise beat inheritance. Plain em (e.g. decision-block cost
+   clauses) needs nothing extra — it has no colour of its own, so it
+   inherits the corrected white automatically. */
+.inverted .case-body { color: var(--white); }
+.inverted .case-body strong { color: var(--white); }
+.inverted .case-body em.key { color: var(--white); }
+
+/* Closing italic note under WHAT I'D DO DIFFERENTLY — index.html's
+   .footnote text treatment (grey italic), without its page-footer spacing. */
+.closing-note { font-style: italic; color: var(--gray-500); font-size: 0.84rem; line-height: 1.6; margin-top: 24px; }
+
+/* ---- DIAGRAM LABELS (case-01, case-03) ----
+   Technical-drawing register: hairlines, DM Sans uppercase small labels, a
+   serif numeral for any standalone count — matching .phase-number/
+   .section-head .num elsewhere. `currentColor` throughout so it inverts
+   correctly inside an .inverted section. */
+.dgm-label, .dgm-sub {
+  font-family: var(--sans);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  fill: currentColor;
+  stroke: none;
+}
+.dgm-label { opacity: 0.8; }
+.dgm-sub   { opacity: 0.55; text-transform: none; letter-spacing: 0.02em; }
+.dgm-count { font-family: var(--serif); font-size: 22px; fill: currentColor; stroke: none; }
+
+/* ---- GALLERY (case-02, case-03) ----
+   One image at a time, prev/next. Shared mechanics only — how the frame
+   sizes itself is page-specific (identical-dimension asset sets need
+   nothing extra; a set of differing ratios needs the sanctioned
+   multi-asset-frame exception, aspect-ratio + object-fit:contain — see
+   assets/README.md §A2 and each page's own <style> for its .gallery__frame
+   sizing rule). */
+.gallery { margin-top: 44px; }
+.gallery__item { display: none; }
+.gallery__item.on { display: block; }
+.gallery__caption { margin-top: 12px; font-size: 0.85rem; color: var(--gray-700); line-height: 1.6; }
+.gallery__controls { display: flex; align-items: center; justify-content: space-between; margin-top: 16px; }
+.gallery__controls button {
+  appearance: none; background: transparent; border: 1px solid var(--gray-300);
+  border-radius: 100px; padding: 8px 18px; cursor: pointer;
+  font-size: 0.82rem; color: var(--black);
+  transition: border-color 0.2s, color 0.2s;
+}
+.gallery__controls button:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+.gallery__controls button:disabled { opacity: 0.3; cursor: default; }
+.gallery__count { font-size: 0.78rem; color: var(--gray-700); }
+
+.credits {
+  font-size: 0.84rem;
+  font-style: italic;
+  color: var(--gray-700);
+  line-height: 1.6;
+}
+
+/* ---- CHROME ---- */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px var(--side-padding);
+  background: rgba(250, 250, 248, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+.nav.scrolled { border-bottom-color: var(--gray-300); }
+
+.nav .name {
+  font-family: var(--serif);
+  font-size: 1rem;
+  text-decoration: none;
+  color: var(--black);
+}
+
+.nav .back {
+  font-size: 0.82rem;
+  color: var(--gray-700);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.nav .back:hover { color: var(--accent); }
+
+.prog {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  width: 0%;
+  background: var(--accent);
+  z-index: 101;
+  transition: width 0.05s linear;
+}
+
+/* ---- SECTION RHYTHM ---- */
+section { padding: 100px 0; }
+section.inverted { background: var(--black); color: var(--white); padding: 90px 0; }
+
+.rule { height: 1px; background: var(--gray-300); border: none; margin: 0; }
+
+/* ---- PLACEHOLDER ---- */
+.ph {
+  background: var(--gray-100);
+  border: 1px dashed var(--gray-300);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  gap: 6px;
+}
+
+.ph .tag {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gray-700);
+}
+
+.ph .desc {
+  font-size: 0.8rem;
+  color: var(--gray-700);
+  max-width: 380px;
+}
+
+.ph.r-21 { aspect-ratio: 21 / 9; }
+.ph.r-16 { aspect-ratio: 16 / 9; }
+.ph.r-43 { aspect-ratio: 4 / 3; }
+.ph.r-11 { aspect-ratio: 1 / 1; }
+
+/* ---- STANDARD MEDIA BLOCK (asset convention: assets/README.md) ----
+   Ratio is never forced — the container adapts to the asset, not the reverse.
+   No object-fit: cover, no hardcoded aspect-ratio, on any of these. ---- */
+.media-frame { border: 1px solid var(--gray-300); background: var(--gray-100); line-height: 0; margin: 0; }
+.media { display: block; max-width: 100%; height: auto; }
+.media-frame figcaption { margin-top: 12px; line-height: 1.6; }
+
+/* ---- STATS ---- */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-top: 48px;
+}
+
+.stat .number {
+  display: block;
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  line-height: 1;
+  color: var(--white);
+  margin-bottom: 10px;
+}
+
+.stat .stat-label {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--gray-300);
+  max-width: 260px;
+}
+
+/* ---- BLOCKS (section 05) ---- */
+.blocks {
+  display: flex;
+  flex-direction: column;
+  gap: 90px;
+  margin-top: 48px;
+}
+
+.block {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 48px;
+  align-items: center;
+}
+
+.block.flip .b-copy { order: 2; }
+.block.flip .b-visual { order: 1; }
+
+.b-index {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+
+.b-copy p { margin: 0 0 12px; color: var(--gray-700); line-height: 1.7; }
+.b-copy p:last-of-type { margin-bottom: 0; }
+
+/* ---- STICKY SCROLL SEQUENCE (section 02, once per page) ---- */
+.sticky-wrap {
+  display: grid;
+  grid-template-areas: "viz" "steps";
+  grid-template-columns: 1fr;
+  gap: 40px;
+  margin-top: 40px;
+}
+
+.sticky-viz {
+  grid-area: viz;
+  position: sticky;
+  top: var(--nav-h);
+  max-height: max(280px, 45vh);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gray-100);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.steps { grid-area: steps; display: flex; flex-direction: column; gap: 0; }
+
+.step {
+  padding: 60px 0;
+  border-top: 1px solid var(--gray-300);
+}
+
+.step:first-child { border-top: none; }
+
+.step .step-num {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--gray-700);
+  margin-bottom: 10px;
+  display: block;
+}
+
+.step p { color: var(--gray-700); line-height: 1.7; margin: 0; }
+
+@media (min-width: 881px) {
+  .sticky-wrap {
+    grid-template-areas: "steps viz";
+    grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+    align-items: start;
+    gap: clamp(32px, 6vw, 80px);
+  }
+
+  .sticky-viz {
+    top: 0;
+    height: 100vh;
+    height: 100svh;
+    max-height: none;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: var(--nav-h);
+    box-sizing: border-box;
+  }
+
+  .steps { padding-block: 10vh; }
+
+  .step {
+    min-height: 62vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0;
+  }
+}
+
+/* ---- TOGGLE GROUPS (case 01 & 02 Viz B) ---- */
+.viz-b-toggles { display: flex; gap: 12px; margin-bottom: 28px; flex-wrap: wrap; }
+
+.toggle-set { display: flex; align-items: center; gap: 10px; margin-right: 20px; margin-bottom: 8px; }
+
+.toggle-label {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gray-700);
+}
+
+.toggle-group {
+  display: inline-flex;
+  padding: 3px;
+  gap: 0;
+  border: 1px solid var(--gray-300);
+  border-radius: 100px;
+  background: var(--white);
+}
+
+.toggle-btn {
+  position: relative;
+  padding: 8px 16px;
+  border-radius: 100px;
+  background: transparent;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gray-700);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+/* divider between segments */
+.toggle-btn + .toggle-btn::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 50%;
+  transform: translateY(-50%);
+  width: 1px; height: 14px;
+  background: var(--gray-300);
+  transition: opacity 0.18s ease;
+}
+
+.toggle-btn[aria-pressed="true"] {
+  background: var(--black);
+  color: var(--white);
+}
+
+/* divider hides where it would touch the selected pill */
+.toggle-btn[aria-pressed="true"]::before,
+.toggle-btn[aria-pressed="true"] + .toggle-btn::before { opacity: 0; }
+
+.toggle-btn:hover:not([aria-pressed="true"]) { color: var(--black); }
+
+/* ---- CREDITS (section 07) ----
+   .next/.next-label/.next-title retired — all three case pages now end on
+   the shared .pager (styles.css) instead of a single next-case link. */
+
+/* ---- MOTION ----
+   .rise/.is-visible retired — all three case pages now use the shared
+   .reveal/.visible (styles.css), including its stagger classes and its
+   no-JS/reduced-motion fallbacks. Nothing case-specific needed here. */
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 880px) {
+  section { padding: 64px 0; }
+  .block { grid-template-columns: 1fr; gap: 24px; }
+  .block.flip .b-copy,
+  .block.flip .b-visual { order: initial; }
+  .stats { grid-template-columns: 1fr; gap: 24px; }
+}
