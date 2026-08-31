@@ -119,6 +119,240 @@ Five fixes, all cross-cutting or `index.html`-only:
 
 ---
 
+## Site-wide, punctuation and navigation round (Aug 2026)
+
+Seven changes. Items 1, 2 and 6 are cross-page; the rest touch `index.html`
+only, except item 5 which reconciles the case pages against it.
+
+**Supersedes, explicitly:** the `INSIDE THE PRODUCT — DESIGN DECISIONS` label
+spelling wherever it appears above; `.case-nav`'s `position: fixed`;
+`index.html`'s hero-intro copy; the `SECTORS I'VE WORKED IN` profile label.
+
+### 1. No em dash anywhere on the site
+
+`—` (U+2014) is banned in every page, every caption, every diagram label,
+every `alt` and `title` string, and every `<title>`. The reason is not
+typographic: it is the single most recognisable tell of machine-written copy,
+and on a portfolio the writing is itself a craft judgement about her.
+
+**Do not run a find-and-replace.** A blind swap to commas produces comma
+splices and a blind swap to ` - ` produces something that looks cheaper than
+what it replaced. Resolve each instance with one of four moves, chosen by
+what the dash was actually doing:
+
+| What the dash was doing | Move |
+|---|---|
+| Joining two independent statements | Full stop, two sentences |
+| Introducing a consequence, a list or a restatement | Colon |
+| Fencing a short aside inside a sentence | Comma pair |
+| Fencing a genuinely parenthetical aside | Parentheses |
+| Separating peer items in a label or meta row | `·` middot |
+
+If a chosen move produces a comma splice or a run-on, split the sentence
+instead. Never substitute ` - ` (spaced hyphen) or a semicolon: those are the
+two marks that reveal the substitution happened mechanically.
+
+**Survives:** `–` (U+2013) inside numeric and date ranges only, as in
+`Jan–Dec 2025` and `30–50%`, never in prose. `·` middot separators in
+`.spec`, `.meta-item`, kicker rows and section labels. Hyphens inside
+compounds (`task-oriented`, `cross-product`).
+
+**Enforcement gate:** `grep -rn '—' *.html` must return nothing. Run it as
+the last step and paste the output. This gate is what makes the rule safe
+even where copy is rewritten from scratch rather than corrected.
+
+**About this file.** Every quoted copy block in this spec is now dash-free
+and is authoritative for the text that ships. The narrative round-by-round
+entries around them still contain em dashes; they are historical record and
+nothing is ever copied out of them into a page. Anything newly written into
+this file follows the rule.
+
+**Report** the count removed per file, and any instance where the right move
+was not obvious, rather than guessing silently.
+
+### 2. Section label respelled
+
+`INSIDE THE PRODUCT · DESIGN DECISIONS`, on all three case pages, in the
+`h2`. Middot because it is already the site's peer separator in `.spec` rows,
+`.meta-item` rows and the kicker line, so no new idiom is introduced. The
+other four labels are unchanged.
+
+### 3. `index.html` hero intro, shortened
+
+The current intro runs 95 words and the feedback is that its length costs it
+the read. Replacement copy, 70 words, same four content units in the same
+order, three `em.key` emphases in the same three positions:
+
+```html
+<p>Product designer and UX/UI designer, 4+ years turning <em class="key">complex technical domains</em> into usable interfaces. In technical and industrial sectors I've taken products from problem framing through UX/UI design and design system architecture into development, next to the engineers building them.</p>
+
+<p>Strongest where <em class="key">the problem is technical and the users are domain experts</em>, working between engineering, product and business. Now moving from consulting into a product company, to <em class="key">stay with one product past its first release</em>.</p>
+```
+
+Copy this verbatim. Do not improve it, do not re-mark the emphases, do not
+add a fourth.
+
+Withdrawn from the intro, deliberately, both flagged and accepted:
+- *"with a track record of moving from an ambiguous brief to a concrete
+  direction"* — the one claim in the intro no case demonstrates, and it
+  contains `brief`, which places her in consulting.
+- *"led a team of 4 designers"* — the count is still unverified (see Open
+  items). If it is confirmed and she wants it back, the insertion point is
+  the end of the second sentence: `..., next to the engineers building them,
+  leading a team of 4.` Nowhere else.
+
+### 4. Profile: sectors row states the role
+
+Label changes from `SECTORS I'VE WORKED IN` to
+`SECTORS I'VE WORKED IN AS PRODUCT DESIGNER`. Tags unchanged.
+
+The label idiom is uppercase and letter-spaced on a fixed-width column, so
+this longer string will wrap. Two lines is acceptable, three is not. **Check
+it at 380px, 768px and 1440px before reporting done.** If it reaches three
+lines, do not shrink the type and do not narrow the letter-spacing: revert
+the label to `SECTORS I'VE WORKED IN` and open the row's content with
+`Product designer in:` ahead of the tags instead. Report which of the two you
+ended up with.
+
+### 5. Role and date reconciliation: `index.html` wins
+
+The role and date values in the case pages' `.spec` panels disagree with the
+work-item entries on the home page. **`index.html` is the source of truth**;
+the case pages align to it.
+
+Procedure, in this order:
+
+1. Read the role and date for each of the three work items in `index.html`.
+2. Read `My role` and `Timeline` in each case page's `.spec`.
+3. **Report the full diff before changing anything**: home value against case
+   value, per field, per case.
+4. Then apply, home value overwriting case value.
+
+Two conditions:
+- Where the home has a real value and the case page has a placeholder
+  (`[to confirm]`, `.tbc`), the home value wins.
+- Where both are placeholders, both stay placeholders. Nothing is invented to
+  close a gap.
+
+Watch case 01 specifically: the home may carry 2025 while the Red Dot page
+linked in item 7 is a Design Concept 2024 entry. If those two disagree,
+report it rather than resolving it.
+
+### 6. Case-page nav: sticky, auto-hiding, present at the bottom
+
+**The defect.** `.case-nav` is `position: fixed`, so it reserves no space in
+the flow. `.case-top`'s padding absorbs it at desktop width, but at 380px the
+nav wraps to two lines and sits over the `h1`, which makes the case title
+unreadable at the exact moment the page is first seen.
+
+**Part one, never overlap at rest.** `position: sticky` instead of `fixed`.
+It stays in the flow, so the space is reserved by construction at every
+breakpoint and no height needs measuring in JS.
+
+```css
+.case-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-300);
+  transition: transform 0.28s ease;
+}
+.case-nav.is-hidden { transform: translateY(-100%); }
+@media (prefers-reduced-motion: reduce) {
+  .case-nav { transition: none; }
+}
+html { scroll-padding-top: 72px; }
+```
+
+**Structural precondition, and the thing most likely to break this:**
+`position: sticky` does not work inside an ancestor that clips. `.case-top`
+carries `overflow: hidden` to contain the gradient's `right: -6vw`. So
+`.case-nav` must be a **sibling of `.case-top`, placed before it**, not a
+child. If it is currently a child, move it and confirm the gradient still
+does not produce a horizontal scrollbar.
+
+**Part two, hides on the way down, returns on the way up.** In `main.js`, not
+per page:
+
+```js
+(function () {
+  var nav = document.querySelector('.case-nav');
+  if (!nav) return;
+  var last = window.pageYOffset;
+  window.addEventListener('scroll', function () {
+    var y = window.pageYOffset;
+    if (Math.abs(y - last) < 8) return;            // ignore jitter
+    var atBottom = y + window.innerHeight >= document.documentElement.scrollHeight - 4;
+    nav.classList.toggle('is-hidden', !atBottom && y > last && y > nav.offsetHeight);
+    last = y;
+  }, { passive: true });
+})();
+```
+
+**Why `atBottom` is in there and is not optional.** The footer pager is gone
+from the case pages, so this nav is now the only route from one case to the
+next. Without the bottom condition, a reader who reaches the end of the page
+by scrolling down has no navigation at all and has to scroll back up to find
+it.
+
+Nothing here is a new visual value: `--white`, `--gray-300` and the 1px
+hairline are `index.html`'s. `z-index: 50` and the transform are behaviour,
+not style.
+
+### 7. Red Dot link
+
+The award citation becomes a link:
+
+```html
+<a href="https://www.red-dot.org/project/ims-technologies-new-hmi-generation-72251"
+   target="_blank" rel="noopener noreferrer">Red Dot Award: Design Concept 2024 · Best of the Best</a>
+```
+
+Link styling is inherited from `index.html`'s existing inline link treatment.
+Do not author a new one, and do not add an external-link icon.
+
+Two facts about the destination page, both verified by opening it, both
+consequential and both accepted by her:
+
+1. **Her name is not in the credits.** The listed NiEW designers are Andrea
+   Zambonini, Ewoud Westerduin, Luca Tognazzi, Andrea Ceci, Andrea Violante
+   and Daniele De Cia; team leads Teresa Alaniz and Clara Reali. So the
+   citation must not be phrased as a personal award. `project by NiEW`, or
+   equivalent studio attribution, stays adjacent to it.
+2. **The page names the client**: IMS Technologies Spa, converting industry.
+   Case 01 describes an OEM group of comparable size and character, so the
+   two are joinable by a reader who follows the link. This does not change
+   the NDA approach on the assets, which protects the screens rather than the
+   client identity, and no case-page copy names a client anywhere.
+
+### Regression checks for this round
+
+1. `grep -rn '—' *.html` returns nothing. Paste the output.
+2. `grep -rn ' - ' *.html` shows no instance standing in for a dash between
+   clauses.
+3. `grep -rn '–' *.html` shows en dashes only inside numeric or date ranges.
+4. All three case pages read `INSIDE THE PRODUCT · DESIGN DECISIONS`.
+5. Hero intro is exactly the two paragraphs above, with exactly three
+   `em.key` spans.
+6. Sectors label renders in two lines or fewer at 380px, 768px and 1440px.
+7. Role and date diff reported before it was applied, and no placeholder was
+   filled with an invented value.
+8. At 380px on each case page: on load the `h1` and `.case-lede` are fully
+   visible with nothing over them; scrolling down 200px hides the nav;
+   scrolling up 100px returns it; at the page bottom the nav is present.
+9. Keyboard: the nav's links are still reachable and focus is visible while
+   the nav is in its returned state.
+10. `prefers-reduced-motion: reduce`: the nav appears and disappears with no
+    transition, everything else unchanged.
+11. Red Dot link opens in a new tab and carries `rel="noopener noreferrer"`.
+12. No horizontal scrollbar at 380px, 768px or 1440px after `.case-nav` was
+    moved out of `.case-top`.
+13. Zero console errors. No layout shift on load caused by the nav now
+    occupying flow space.
+
+---
+
 ## Case 01 — Designing to ship
 
 *Case 01 restructured — narrative revision, Aug 2026. Withdrawn: seven-section
@@ -202,12 +436,12 @@ HERO            light/dark split of one screen, draggable divider
 01 THE PROBLEM
 02 THE SOLUTION                       ← contains the page's only diagram; this is the inverted section
 03 THE IMPACT
-04 INSIDE THE PRODUCT — DESIGN DECISIONS   ← three numbered blocks, inline crops
+04 INSIDE THE PRODUCT · DESIGN DECISIONS   ← three numbered blocks, inline crops
 05 WHAT I'D DO DIFFERENTLY
 ```
 
 Section labels ("THE PROBLEM", "THE SOLUTION", "THE IMPACT", "INSIDE THE
-PRODUCT — DESIGN DECISIONS", "WHAT I'D DO DIFFERENTLY") are the same on all
+PRODUCT · DESIGN DECISIONS", "WHAT I'D DO DIFFERENTLY") are the same on all
 three case pages, rendered as `h2`. Under each label sits a pre-title (`h3`)
 carrying the page-specific argument. Both are structural — never merge them.
 
@@ -223,7 +457,7 @@ width while every other section on the page is capped at 820/1140px).
 - `.backlink`: "← Back", to `index.html`.
 - `h1.case-title` (`index.html`'s real case-title sizing, not `.hero h1`
   which is the landing-page size): "Designing to ship"
-- `.case-lede`: "Two brands, one machine, eight interfaces to build — and a
+- `.case-lede`: "Two brands, one machine, eight interfaces to build, and a
   development plan that couldn't hit its deadline."
 - `.case-body` (two paragraphs), three `em.key` emphasis spans — italic
   accent, matching `.hero-intro em`/`.case-title em` elsewhere on the site
@@ -231,7 +465,7 @@ width while every other section on the page is capped at 820/1140px).
   of this page used bold-accent and that was wrong), each readable
   standalone: "This is the case I took *from the first architectural
   decision to the machine leaving the floor*. Nobody asked for a design
-  system — *I proposed one*, because the client's problem was
+  system. *I proposed one*, because the client's problem was
   architectural." / "Then I designed both products on top of it, screens and
   physical controls, and *stayed inside the build* with the client's
   development team until it shipped." A fourth emphasis would turn the block
@@ -244,10 +478,10 @@ width while every other section on the page is capped at 820/1140px).
   "hairlines off the accent, not grey" direction from earlier rounds.
   - My role (`.spec-row--key`, serif `dd` + sans `<small>` sub-line — its
     native treatment): "Design Lead" / "Led the design of the screens for
-    both machines, architected the design system, and ran the project —
+    both machines, architected the design system, and ran the project:
     planning, client relationship, and oversight through development.
     Development by the client's IT team."
-  - Sector: "Manufacturing — industrial OEM group (~€390M), built through
+  - Sector: "Manufacturing · industrial OEM group (~€390M), built through
     European acquisitions"
   - Timeline: "Jan – Dec 2025"
   - Team: "3 designers · client front-end and back-end teams"
@@ -311,8 +545,8 @@ inside DESIGN DECISIONS below, never a standalone browsable section.
 > machine, each interface rebuilt from scratch, and the plan on the table
 > was to design and maintain every combination one by one.
 >
-> That plan meant eight interfaces — two products, two screen sizes, two
-> modes — against development deadlines that were already fixed. Nothing was
+> That plan meant eight interfaces (two products, two screen sizes, two
+> modes) against development deadlines that were already fixed. Nothing was
 > reused, so nothing got cheaper.
 
 ### 02 — The solution
@@ -326,7 +560,7 @@ below).
 > wasn't in scope: a design system, because switching brand and mode without
 > rebuilding is an architecture problem, not a styling one.
 >
-> I built it from scratch on a variables architecture — one foundation to
+> I built it from scratch on a variables architecture: one foundation to
 > design and maintain, every variant derived from it. Structure and
 > interaction stay identical across the group; brand lives at the visual
 > layer only. An operator who learns one machine can run another.
@@ -382,7 +616,7 @@ where each block reveals on its own. Three lead-bolded paragraphs, mapped
 straight onto that structure:
 
 > **Eight configurations from one foundation.** Designed and maintained as
-> one system instead of eight products — and scalable at any point: a new
+> one system instead of eight products, and scalable at any point: a new
 > brand joining the group enters by swapping the foundation, with no product
 > redesign.
 >
@@ -390,11 +624,11 @@ straight onto that structure:
 > that had looked ungovernable.
 >
 > **The client adopted the same tokens in their own codebase,** putting
-> design and development on one logic — and bought follow-on projects, some
+> design and development on one logic, and bought follow-on projects, some
 > strategically significant, from a solution that was never in the original
 > scope.
 
-### 04 — Inside the product — design decisions
+### 04 · Inside the product · design decisions
 
 **Pre-title:** Three decisions, and what each one cost
 
@@ -412,7 +646,7 @@ length.
 
 > **01 · The interface isn't the screen**
 > Part of this machine is operated by hand, on physical controls. I designed
-> that boundary — which functions stay physical, what their limits are, and
+> that boundary: which functions stay physical, what their limits are, and
 > how the screen feeds back what the operator's hands are doing. Designing
 > hardware and software as one product is slower than designing the screen
 > alone.
@@ -420,7 +654,7 @@ length.
 > **02 · Designed for gloves and bad light**
 > Operators set the machine up mid-production: gloves on, noise, changing
 > light, inside safety procedures where a wrong parameter ruins the part,
-> not just a screen state. The client asked for the 48px standard minimum —
+> not just a screen state. The client asked for the 48px standard minimum.
 > I pushed touch targets to 56px, and made screens carry only what the
 > current task needs with secondary parameters one level away. It cost rows
 > of density in a project that wanted maximum data on screen, and the client
@@ -431,7 +665,7 @@ length.
 > I set up a grid the development team could adapt on their own. The
 > parameter list, dense and inconsistent across both machines, was rebuilt
 > in one session with the front-end and back-end teams, so the structure was
-> buildable the moment we agreed on it — and I stayed through the build,
+> buildable the moment we agreed on it, and I stayed through the build,
 > refining whatever was costing the team effort. More of my time went into
 > someone else's build cost than into more screens, which is the reason the
 > deadlines became reachable.
@@ -465,7 +699,7 @@ can't do that. Each panel carries its own `title`/`desc`; the shared
 **Pre-title:** The validation happened without me
 
 > The client ran the operator sessions and I wasn't there. I'd negotiate
-> that access at kickoff now rather than accept it as given — the card sort
+> that access at kickoff now rather than accept it as given. The card sort
 > happened with the people building the product, not the people using it.
 
 Closing note, small, italic, quiet (`index.html`'s `.footnote` text
@@ -676,7 +910,7 @@ GALLERY         6 images, one at a time, prev/next — discovered from assets/ca
 01 THE PROBLEM
 02 THE SOLUTION      ← documentation pair (component doc, then pattern doc, stacked full-width — never side by side)
 03 THE IMPACT        ← .phases, 3 cards
-04 INSIDE THE PRODUCT — DESIGN DECISIONS   ← .decisions, 3 blocks, no images
+04 INSIDE THE PRODUCT · DESIGN DECISIONS   ← .decisions, 3 blocks, no images
 05 WHAT I'D DO DIFFERENTLY
 ```
 
@@ -717,6 +951,11 @@ files were deleted rather than left as orphaned dead weight.
   system vs. teams in the weekly forum. Implemented exactly as given; the
   brief flagged this itself as worth a second read before publishing, not
   as something to change.
+- **Team-of-4 count** (withdrawn from `index.html`'s hero intro in the
+  punctuation/navigation round) is still unverified. The reinsertion point is
+  specified in that section; nothing goes back in until the number is
+  confirmed. This is the same discrepancy as the row above, seen from the home
+  page instead of the case page.
 - **`~56 components`** (THE PROBLEM) is now the only place that figure
   appears, since PROJECT INFO lists the four libraries by name instead of a
   count. Implemented as given; confirm the figure is still accurate.
@@ -770,7 +1009,7 @@ VIDEO           autoplaying, muted, loop, real pause/play toggle — reuses case
 01 THE PROBLEM
 02 THE SOLUTION (inverted)   ← the page's one diagram: one line through the three real downtime-scenario screens
 03 THE IMPACT        ← .phases, 4 cards (page-local 2-column override)
-04 INSIDE THE PRODUCT — DESIGN DECISIONS   ← .decisions, 3 blocks, no images
+04 INSIDE THE PRODUCT · DESIGN DECISIONS   ← .decisions, 3 blocks, no images
 05 WHAT I'D DO DIFFERENTLY
 ```
 
@@ -866,3 +1105,19 @@ required.
   rethinking at a higher count, per the brief's own note.
 - **`+30%` qualified-lead figure** — implemented as given; still asks
   confirmation that it's the number the client would recognise.
+
+---
+
+## Open items, site-wide
+
+- **Red Dot credits**: resolved, and resolved against her. Her name does not
+  appear in the project credits on the linked page. The link is kept anyway
+  (her decision), so the citation is phrased as a studio project rather than
+  a personal award. Nothing further to do unless she wants the phrasing
+  revisited.
+- **Case 01 date against the Red Dot year**: the linked entry is Design
+  Concept 2024; the case page and home page carry 2025. To be reported by the
+  reconciliation pass in item 5, not resolved here.
+- **`.case-nav` position in the DOM**: whether it is currently a child of
+  `.case-top` is unknown from this file. It determines whether item 6 is a
+  two-line CSS change or also a markup move. To be discovered, not assumed.

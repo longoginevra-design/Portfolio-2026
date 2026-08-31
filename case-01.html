@@ -98,19 +98,29 @@
      internally). Bottom-alignment and the correct relative scale are done
      in CSS (align-items:flex-end + proportional flex-basis/max-width)
      instead of shared absolute coordinates, so the two stay geometrically
-     correct at any width. Diagonal ratio 10÷17=0.588 applied to both
-     dimensions of a 4:3 frame: 476×357 (17") vs 280×210 (10") — both
-     panels' own local viewBoxes keep the exact given pixel geometry,
-     just re-originated to (0,0) instead of shared (520,167). */
+     correct at any width. Geometry is now derived from each display's real
+     native resolution: 17" is 1920×714 (ratio 2.689:1), 10" is 1280×800
+     (ratio 1.6:1), both confirmed against real Single Cut screenshots, not
+     assumed. Converted to physical size via w=D·a/√(a²+b²),
+     h=D·b/√(a²+b²) for diagonal D and pixel aspect a:b, then both panels
+     scaled by one shared factor k (≈29.49 units/inch) so display 1's width
+     lands at 470 units: 470×175 (17") and 250×156 (10"). Because the two
+     displays have genuinely different aspect ratios, not a shared ratio
+     scaled by the diagonal, the panels are a different shape, not a
+     smaller copy of the same one: display 2 comes out visibly squarer,
+     with a height within ~11% of display 1's despite being the smaller
+     diagonal. Each panel embeds the real screenshot via SVG
+     <image>, with its actual column grid drawn on top as accent-coloured
+     lines at 20% opacity. */
   .grid-diagram__row { display: flex; align-items: flex-end; gap: 24px; }
-  .grid-diagram__panel--d1 { flex: 492 1 0; }
-  .grid-diagram__panel--d2 { flex: 296 1 0; max-width: 58.8%; }
+  .grid-diagram__panel--d1 { flex: 470 1 0; }
+  .grid-diagram__panel--d2 { flex: 250 1 0; max-width: 53.2%; }
   .grid-diagram figcaption { margin-top: 16px; font-size: 0.85rem; color: var(--gray-700); }
 
   @media (max-width: 640px) {
     .grid-diagram__row { flex-direction: column; align-items: flex-start; gap: 32px; }
     .grid-diagram__panel--d1, .grid-diagram__panel--d2 { flex: none; width: 100%; }
-    .grid-diagram__panel--d2 { max-width: 58.8%; }
+    .grid-diagram__panel--d2 { max-width: 53.2%; }
   }
 
   /* .dgm-label/.dgm-sub/.dgm-count now live in case.css — shared with
@@ -308,7 +318,7 @@
 <section>
   <div class="text">
     <div class="sec-heading reveal">
-      <h2 class="sec-label">04 — Inside the product — design decisions</h2>
+      <h2 class="sec-label">04 — Inside the product · design decisions</h2>
       <h3 class="sec-pretitle">Three decisions, and what each one cost</h3>
     </div>
 
@@ -329,8 +339,8 @@
           <p>Operators set the machine up mid-production: gloves on, noise, changing light, inside safety procedures where a wrong parameter ruins the part, not just a screen state. The client asked for the 48px standard minimum — I pushed touch targets to <strong>56px</strong>, and made screens carry only what the current task needs with secondary parameters one level away.</p>
           <p><em>It cost rows of density in a project that wanted maximum data on screen, and the client later validated the larger target with their own operators and kept it.</em></p>
           <figure class="media-frame reveal">
-            <img class="media" src="assets/cases/01/case01-designedforglovesandbadlight.png" width="1920" height="714" loading="lazy" decoding="async" alt="A machine manual-function screen with large touch targets, showing Functions and Parameters as separate tabs so secondary settings sit one tap away.">
-            <figcaption>Secondary parameters, one tab away.</figcaption>
+            <img class="media" src="assets/cases/01/case01-designedforglovesandbadlight.png" width="1920" height="714" loading="lazy" decoding="async" alt="A Single Cut configuration screen with large, touch-sized profile and cut-shape buttons, showing only the cut angles and profile dimensions relevant to the current piece.">
+            <figcaption>Large targets, task-relevant info only.</figcaption>
           </figure>
         </div>
       </li>
@@ -344,34 +354,34 @@
 
           <figure class="grid-diagram reveal">
             <div class="grid-diagram__row">
-              <svg class="grid-diagram__panel grid-diagram__panel--d1" viewBox="0 0 492 410" width="492" height="410" role="img" aria-labelledby="grd1-title grd1-desc" fill="none" stroke="currentColor">
+              <svg class="grid-diagram__panel grid-diagram__panel--d1" viewBox="0 0 470 205" width="470" height="205" role="img" aria-labelledby="grd1-title grd1-desc">
                 <title id="grd1-title">Display 1 grid, 17 inch, 12 columns</title>
-                <desc id="grd1-desc">The larger, 17-inch display's twelve-column grid, used to lay out the larger screen.</desc>
-                <rect x="8" y="20" width="476" height="357" stroke-width="1.25"/>
-                <g stroke-width="1" opacity="0.55">
-                  <rect x="16" y="28" width="31" height="341"/><rect x="55" y="28" width="31" height="341"/>
-                  <rect x="94" y="28" width="31" height="341"/><rect x="133" y="28" width="31" height="341"/>
-                  <rect x="172" y="28" width="31" height="341"/><rect x="211" y="28" width="31" height="341"/>
-                  <rect x="250" y="28" width="31" height="341"/><rect x="289" y="28" width="31" height="341"/>
-                  <rect x="328" y="28" width="31" height="341"/><rect x="367" y="28" width="31" height="341"/>
-                  <rect x="406" y="28" width="31" height="341"/><rect x="445" y="28" width="31" height="341"/>
+                <desc id="grd1-desc">The larger, 17-inch display's real Single Cut screen, at its true proportions, with its twelve-column grid overlaid in translucent accent blue.</desc>
+                <image href="assets/cases/01/case01-grid-display1-17in.png" x="0" y="0" width="470" height="175"/>
+                <g stroke="var(--accent)" stroke-width="1.25" opacity="0.2">
+                  <line x1="39.17" y1="0" x2="39.17" y2="175"/><line x1="78.33" y1="0" x2="78.33" y2="175"/>
+                  <line x1="117.5" y1="0" x2="117.5" y2="175"/><line x1="156.67" y1="0" x2="156.67" y2="175"/>
+                  <line x1="195.83" y1="0" x2="195.83" y2="175"/><line x1="235" y1="0" x2="235" y2="175"/>
+                  <line x1="274.17" y1="0" x2="274.17" y2="175"/><line x1="313.33" y1="0" x2="313.33" y2="175"/>
+                  <line x1="352.5" y1="0" x2="352.5" y2="175"/><line x1="391.67" y1="0" x2="391.67" y2="175"/>
+                  <line x1="430.83" y1="0" x2="430.83" y2="175"/>
                 </g>
-                <text x="8" y="400" class="dgm-label">DISPLAY 1 · 17″ · 12 COLUMNS</text>
+                <text x="0" y="197" class="dgm-label" fill="currentColor">DISPLAY 1 · 17″ · 12 COLUMNS</text>
               </svg>
-              <svg class="grid-diagram__panel grid-diagram__panel--d2" viewBox="0 0 296 263" width="296" height="263" role="img" aria-labelledby="grd2-title grd2-desc" fill="none" stroke="currentColor">
+              <svg class="grid-diagram__panel grid-diagram__panel--d2" viewBox="0 0 250 186" width="250" height="186" role="img" aria-labelledby="grd2-title grd2-desc">
                 <title id="grd2-title">Display 2 grid, 10 inch, 8 columns</title>
-                <desc id="grd2-desc">The smaller, 10-inch display's eight-column grid, built on the same logic as the twelve-column grid, scaled down by the ratio of the two screens' diagonals.</desc>
-                <rect x="8" y="20" width="280" height="210" stroke-width="1.25"/>
-                <g stroke-width="1" opacity="0.55">
-                  <rect x="15" y="27" width="28" height="196"/><rect x="49" y="27" width="28" height="196"/>
-                  <rect x="83" y="27" width="28" height="196"/><rect x="117" y="27" width="28" height="196"/>
-                  <rect x="151" y="27" width="28" height="196"/><rect x="185" y="27" width="28" height="196"/>
-                  <rect x="219" y="27" width="28" height="196"/><rect x="253" y="27" width="28" height="196"/>
+                <desc id="grd2-desc">The smaller, 10-inch display's real Single Cut screen. Its native resolution gives it a visibly squarer shape than display 1, not just a smaller copy of it, with its eight-column grid overlaid in translucent accent blue.</desc>
+                <image href="assets/cases/01/case01-grid-display2-10in.png" x="0" y="0" width="250" height="156"/>
+                <g stroke="var(--accent)" stroke-width="1.25" opacity="0.2">
+                  <line x1="31.25" y1="0" x2="31.25" y2="156"/><line x1="62.5" y1="0" x2="62.5" y2="156"/>
+                  <line x1="93.75" y1="0" x2="93.75" y2="156"/><line x1="125" y1="0" x2="125" y2="156"/>
+                  <line x1="156.25" y1="0" x2="156.25" y2="156"/><line x1="187.5" y1="0" x2="187.5" y2="156"/>
+                  <line x1="218.75" y1="0" x2="218.75" y2="156"/>
                 </g>
-                <text x="8" y="253" class="dgm-label">DISPLAY 2 · 10″ · 8 COLUMNS</text>
+                <text x="0" y="178" class="dgm-label" fill="currentColor">DISPLAY 2 · 10″ · 8 COLUMNS</text>
               </svg>
             </div>
-            <figcaption>Same grid logic, two column counts, scaled to each screen's real size. The development team adapted it themselves.</figcaption>
+            <figcaption>Same grid logic, two column counts, shown on the real screens at their true relative size and shape. The development team adapted it themselves.</figcaption>
           </figure>
         </div>
       </li>
